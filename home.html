@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAN – Community Assistance Network | Helping People, Changing Lives</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #c0392b;
+  --red-light: #e74c3c;
+  --blue: #1a6fa8;
+  --blue-dark: #0d4f7a;
+  --blue-light: #2980b9;
+  --cream: #fdf8f3;
+  --dark: #1a1a2e;
+  --mid: #4a5568;
+  --light: #f7f9fc;
+  --white: #ffffff;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
+  --shadow-3d: 6px 6px 0 rgba(0,0,0,0.12);
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--red), var(--red-light));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1.4rem;
+  box-shadow: 3px 3px 0 rgba(192,57,43,0.3);
+  transform: rotate(-3deg);
+  transition: transform var(--transition);
+}
+.logo-wrap:hover .logo-icon { transform: rotate(0deg) scale(1.05); }
+.logo-text { line-height: 1.1; }
+.logo-text strong { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--blue-dark); display: block; }
+.logo-text span { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.05em; }
+
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-links a, .nav-dropdown > span {
+  padding: 8px 16px; border-radius: 8px;
+  font-size: 0.9rem; font-weight: 500; color: var(--mid);
+  text-decoration: none; cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-dropdown > span:hover { background: var(--light); color: var(--blue); }
+.nav-links a.active { background: var(--blue); color: white; }
+
+.nav-dropdown { position: relative; }
+.nav-dropdown:hover .dropdown-menu { opacity: 1; pointer-events: all; transform: translateY(0); }
+.dropdown-menu {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: white; border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 8px; min-width: 220px;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-8px);
+  transition: all var(--transition);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.dropdown-menu a {
+  display: block; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.875rem; color: var(--mid); text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+.dropdown-menu a:hover { background: var(--light); color: var(--blue); }
+
+.lang-select {
+  padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.15);
+  font-size: 0.85rem; color: var(--mid); background: white; cursor: pointer;
+  margin-right: 8px;
+}
+.btn-donate {
+  background: linear-gradient(135deg, var(--red), var(--red-light));
+  color: white; border: none; padding: 10px 22px; border-radius: 10px;
+  font-weight: 600; font-size: 0.9rem; cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(192,57,43,0.3);
+  transform: translateY(0);
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+}
+.btn-donate:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(192,57,43,0.3); }
+
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - 72px);
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #1a8fcb 100%);
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  padding: 4rem 5vw;
+  gap: 3rem;
+}
+
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%);
+}
+
+.hero-dots {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 6px 16px; border-radius: 100px; font-size: 0.8rem;
+  font-weight: 500; letter-spacing: 0.05em; margin-bottom: 1.5rem;
+  backdrop-filter: blur(8px);
+}
+.hero-badge::before { content: '🎉'; }
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: white; line-height: 1.1; margin-bottom: 1.25rem;
+}
+.hero h1 em { font-style: italic; color: #ffd700; }
+
+.hero p {
+  font-size: 1.1rem; color: rgba(255,255,255,0.85); line-height: 1.7;
+  margin-bottom: 2rem; max-width: 480px;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: white; color: var(--blue-dark);
+  padding: 14px 28px; border-radius: 12px; font-weight: 700;
+  font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 6px 7px 0 rgba(0,0,0,0.15); }
+.btn-outline {
+  border: 2px solid rgba(255,255,255,0.6); color: white;
+  padding: 14px 28px; border-radius: 12px; font-weight: 600;
+  font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; }
+
+.hero-stats {
+  display: flex; gap: 2rem; margin-top: 3rem;
+}
+.stat { text-align: center; }
+.stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #ffd700; display: block; }
+.stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Hero Event Card */
+.hero-card-wrap { position: relative; z-index: 2; }
+.hero-event-card {
+  background: white; border-radius: 24px;
+  box-shadow: 12px 12px 0 rgba(0,0,0,0.15), 0 30px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+  transform: rotate(2deg);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.hero-event-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 16px 16px 0 rgba(0,0,0,0.15), 0 40px 80px rgba(0,0,0,0.3); }
+
+.card-img {
+  width: 100%; height: 200px; object-fit: cover;
+  background: linear-gradient(135deg, #2d6a4f, #52b788);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+}
+.card-body { padding: 1.5rem; }
+.card-tag { font-size: 0.7rem; font-weight: 700; color: var(--red); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.card-body h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--dark); margin-bottom: 8px; }
+.card-meta { font-size: 0.85rem; color: var(--mid); margin-bottom: 16px; display: flex; gap: 12px; }
+.card-meta span { display: flex; align-items: center; gap: 4px; }
+.card-note {
+  background: #fff8e1; border-left: 3px solid #ffd700;
+  padding: 10px 14px; border-radius: 0 8px 8px 0;
+  font-size: 0.8rem; color: var(--mid); margin-bottom: 14px;
+}
+.btn-card {
+  width: 100%; padding: 12px; background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; text-align: center; text-decoration: none; display: block;
+  transition: transform var(--transition);
+}
+.btn-card:hover { transform: translateY(-2px); }
+
+/* ── SECTION COMMON ── */
+section { padding: 5rem 5vw; }
+.section-label {
+  font-size: 0.75rem; font-weight: 700; color: var(--blue);
+  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); line-height: 1.2;
+}
+.section-header { margin-bottom: 3rem; }
+.section-header p { margin-top: 12px; color: var(--mid); font-size: 1.05rem; max-width: 560px; }
+
+/* ── PROGRAMS ── */
+.programs { background: var(--light); }
+
+.programs-tabs {
+  display: flex; gap: 8px; margin-bottom: 2.5rem; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 8px 20px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+  border: 2px solid rgba(0,0,0,0.1); background: white; color: var(--mid);
+  cursor: pointer; transition: all var(--transition);
+}
+.tab-btn.active, .tab-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
+
+.programs-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.prog-card {
+  background: white; border-radius: var(--radius);
+  overflow: hidden; text-decoration: none; color: inherit;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.06);
+  transform: translateY(0) perspective(800px) rotateX(0);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: block;
+}
+.prog-card:hover {
+  transform: translateY(-6px) perspective(800px) rotateX(2deg);
+  box-shadow: var(--shadow-lg);
+}
+.prog-img {
+  height: 160px; background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  display: flex; align-items: center; justify-content: center; font-size: 3rem;
+  position: relative; overflow: hidden;
+}
+.prog-img::after {
+  content: ''; position: absolute; bottom: -20px; left: -10%; right: -10%;
+  height: 40px; background: white; transform: rotate(-2deg);
+}
+.prog-info { padding: 1.25rem 1.25rem 1.5rem; }
+.prog-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.prog-info p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 14px; }
+.prog-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.prog-link {
+  font-size: 0.75rem; font-weight: 600; color: var(--blue);
+  background: rgba(26,111,168,0.08); padding: 4px 10px; border-radius: 6px;
+  text-decoration: none; transition: background var(--transition);
+}
+.prog-link:hover { background: rgba(26,111,168,0.18); }
+
+/* ── IMPACT ── */
+.impact {
+  background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+  position: relative; overflow: hidden;
+}
+.impact::before {
+  content: '60'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+  font-family: 'DM Serif Display', serif; font-size: 25vw; color: rgba(255,255,255,0.03);
+  line-height: 1; pointer-events: none;
+}
+
+.impact .section-title { color: white; }
+.impact .section-label { color: #ffd700; }
+.impact p { color: rgba(255,255,255,0.7); }
+
+.impact-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.impact-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius); padding: 2rem 1.5rem;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform var(--transition), background var(--transition);
+  backdrop-filter: blur(8px);
+}
+.impact-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
+.impact-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem; color: #ffd700; display: block; margin-bottom: 8px;
+}
+.impact-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+/* ── EVENT BANNER ── */
+.event-banner {
+  background: linear-gradient(135deg, var(--red-light), var(--red));
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2.5rem 5vw; gap: 2rem; flex-wrap: wrap;
+}
+.event-banner-text { color: white; }
+.event-banner-text h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
+.event-banner-text p { opacity: 0.9; font-size: 0.95rem; }
+.btn-white {
+  background: white; color: var(--red); padding: 14px 28px; border-radius: 12px;
+  font-weight: 700; text-decoration: none; white-space: nowrap;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: inline-block;
+}
+.btn-white:hover { transform: translateY(-3px); box-shadow: 6px 7px 0 rgba(0,0,0,0.15); }
+
+/* ── SUPPORT ── */
+.support-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.support-card {
+  background: white; border-radius: var(--radius); padding: 2rem;
+  text-align: center; text-decoration: none; color: inherit;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.support-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.support-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+.support-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.support-card p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
+
+/* ── TESTIMONIAL ── */
+.testimonials { background: var(--light); }
+.testimonials-scroll {
+  display: flex; gap: 1.5rem; overflow-x: auto;
+  padding-bottom: 1rem; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.testimonials-scroll::-webkit-scrollbar { height: 4px; }
+.testimonials-scroll::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+.testi-card {
+  min-width: 320px; background: white; border-radius: var(--radius); padding: 1.75rem;
+  box-shadow: var(--shadow-sm); scroll-snap-align: start;
+  border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0;
+}
+.testi-stars { color: #ffd700; font-size: 1rem; margin-bottom: 12px; }
+.testi-quote { font-size: 0.95rem; color: var(--dark); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+.testi-author { font-size: 0.8rem; font-weight: 700; color: var(--blue); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark); color: rgba(255,255,255,0.7);
+  padding: 4rem 5vw 2rem;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 3rem;
+}
+.footer-brand p { font-size: 0.85rem; line-height: 1.7; margin-top: 12px; max-width: 260px; }
+.footer-col h4 { color: white; font-weight: 700; margin-bottom: 1rem; font-size: 0.9rem; }
+.footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 8px; transition: color var(--transition); }
+.footer-col a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+  font-size: 0.8rem;
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; padding: 3rem 5vw; }
+  .hero-card-wrap { display: none; }
+  .hero-stats { gap: 1.5rem; }
+  .nav-links { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── FLOATING BACK TO TOP ── */
+.top-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--blue); color: white;
+  border: none; cursor: pointer; font-size: 1.2rem;
+  box-shadow: var(--shadow-md);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.top-btn.show { opacity: 1; pointer-events: all; }
+.top-btn:hover { transform: scale(1.1); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo-wrap">
+    <div class="logo-icon">♥</div>
+    <div class="logo-text">
+      <strong>CAN</strong>
+      <span>Community Assistance Network</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <div class="nav-dropdown">
+      <span>Programs & Services ▾</span>
+      <div class="dropdown-menu">
+        <a href="https://www.canconnects.org/food-pantry">🥫 Community Choice Pantry</a>
+        <a href="https://www.canconnects.org/pantry-resources">📋 Pantry Resources</a>
+        <a href="https://www.canconnects.org/homeless-shelters-housing-programs">🏠 Homeless & Housing</a>
+        <a href="https://www.canconnects.org/outreach-programs">🤝 Outreach Programs</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <span>Support Us ▾</span>
+      <div class="dropdown-menu">
+        <a href="https://www.canconnects.org/donate">❤️ Donate</a>
+        <a href="https://www.canconnects.org/volunteer-1">🙋 Volunteer</a>
+        <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits">💼 Tax Credits</a>
+      </div>
+    </div>
+    <a href="https://www.canconnects.org/events">Events</a>
+    <div class="nav-dropdown">
+      <span>About Us ▾</span>
+      <div class="dropdown-menu">
+        <a href="https://www.canconnects.org/about-us">Our Story</a>
+        <a href="https://www.canconnects.org/board-of-directors">Leadership</a>
+        <a href="https://www.canconnects.org/office-locations">Locations</a>
+        <a href="https://www.canconnects.org/careers">Careers</a>
+        <a href="https://www.canconnects.org/contact-us">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <select class="lang-select" onchange="alert('Language switching coming soon!')">
+      <option>🌐 English</option>
+      <option>Español</option>
+      <option>中文</option>
+      <option>አማርኛ</option>
+    </select>
+    <a href="https://www.canconnects.org/donate" class="btn-donate">Donate Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Celebrating 60 Years of Service & Impact</div>
+    <h1>Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
+    <p>Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
+    <div class="hero-actions">
+      <a href="https://www.canconnects.org/programs-services" class="btn-primary">
+        <span>Our Programs</span> <span>→</span>
+      </a>
+      <a href="https://www.canconnects.org/volunteer-1" class="btn-outline">
+        <span>Volunteer</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">60+</span><span class="stat-label">Years</span></div>
+      <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Families Served</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Core Programs</span></div>
+    </div>
+  </div>
+
+  <div class="hero-card-wrap">
+    <div class="hero-event-card">
+      <div class="card-img">⛳</div>
+      <div class="card-body">
+        <p class="card-tag">Upcoming Event</p>
+        <h3>6th Annual Charity Golf Tournament</h3>
+        <div class="card-meta">
+          <span>📅 Jun 8, 2025</span>
+          <span>📍 Woodlands Golf Course</span>
+        </div>
+        <div class="card-note">Foursomes, individual tickets & sponsorships available. $175/golfer.</div>
+        <a href="https://crm.bloomerang.co/HostedDonation?ApiKey=pub_98963a49-a831-11ef-904d-0acbdc7b47c3&WidgetId=107136000" class="btn-card">Register Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs reveal" id="programs">
+  <div class="section-header">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Programs & Services</h2>
+    <p>Click any program to learn more and access resources.</p>
+  </div>
+
+  <div class="programs-tabs">
+    <button class="tab-btn active" onclick="filterCards('all',this)">All Programs</button>
+    <button class="tab-btn" onclick="filterCards('food',this)">🥫 Food</button>
+    <button class="tab-btn" onclick="filterCards('housing',this)">🏠 Housing</button>
+    <button class="tab-btn" onclick="filterCards('outreach',this)">🤝 Outreach</button>
+    <button class="tab-btn" onclick="filterCards('careers',this)">💼 Careers & Finance</button>
+  </div>
+
+  <div class="programs-grid" id="progGrid">
+    <a href="https://www.canconnects.org/food-pantry" class="prog-card" data-cat="food">
+      <div class="prog-img" style="background:linear-gradient(135deg,#2d6a4f,#52b788)">🥫</div>
+      <div class="prog-info">
+        <h3>Community Choice Pantry</h3>
+        <p>Dignified food access for families in need. Shop our pantry like a grocery store and choose what works for your family.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/food-pantry" class="prog-link">Pantry Hours</a>
+          <a href="https://www.canconnects.org/pantry-resources" class="prog-link">Income Guidelines</a>
+          <a href="https://www.canconnects.org/pantry-resources" class="prog-link">Sign Up</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" data-cat="housing">
+      <div class="prog-img" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">🏠</div>
+      <div class="prog-info">
+        <h3>Homeless & Housing Services</h3>
+        <p>Emergency shelter, transitional housing, and CAN Shelter Referral services for individuals and families facing housing insecurity.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link">CAN Shelter Referral</a>
+          <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link">Apply for Housing</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="outreach">
+      <div class="prog-img" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">🤝</div>
+      <div class="prog-info">
+        <h3>Outreach Programs</h3>
+        <p>Connecting vulnerable residents with financial assistance eligibility, SNAP enrollment, and homeless street outreach teams.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/outreach-programs" class="prog-link">Financial Assistance</a>
+          <a href="https://www.canconnects.org/outreach-programs" class="prog-link">SNAP</a>
+          <a href="https://www.canconnects.org/outreach-programs" class="prog-link">Street Outreach</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.canconnects.org/careers" class="prog-card" data-cat="careers">
+      <div class="prog-img" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">💼</div>
+      <div class="prog-info">
+        <h3>Career Opportunities</h3>
+        <p>Join our team and make a direct impact. We're always looking for passionate people to grow with us.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/careers" class="prog-link">View Open Roles</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="careers">
+      <div class="prog-img" style="background:linear-gradient(135deg,#d4790a,#f59e0b)">💰</div>
+      <div class="prog-info">
+        <h3>Budget Counseling</h3>
+        <p>One-on-one financial guidance to help you manage expenses, reduce debt, and plan for a more stable future.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/outreach-programs" class="prog-link">Learn More</a>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="outreach">
+      <div class="prog-img" style="background:linear-gradient(135deg,#065f46,#10b981)">🚌</div>
+      <div class="prog-info">
+        <h3>Homeless Street Outreach</h3>
+        <p>Mobile teams connecting unsheltered residents with services, meals, and pathways to housing.</p>
+        <div class="prog-links">
+          <a href="https://www.canconnects.org/outreach-programs" class="prog-link">About Outreach</a>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact reveal">
+  <div class="section-header">
+    <p class="section-label">Our Impact</p>
+    <h2 class="section-title">60 Years of<br>Changing Lives</h2>
+    <p>Every year, CAN makes a measurable difference across Baltimore County.</p>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card"><span class="impact-num">50K+</span><span class="impact-label">Individuals served annually</span></div>
+    <div class="impact-card"><span class="impact-num">1M+</span><span class="impact-label">Pounds of food distributed</span></div>
+    <div class="impact-card"><span class="impact-num">5,000+</span><span class="impact-label">Shelter nights provided</span></div>
+    <div class="impact-card"><span class="impact-num">$2M+</span><span class="impact-label">In financial assistance</span></div>
+    <div class="impact-card"><span class="impact-num">60</span><span class="impact-label">Years of service & impact</span></div>
+  </div>
+</section>
+
+<!-- EVENT BANNER -->
+<div class="event-banner reveal">
+  <div class="event-banner-text">
+    <h2>⛳ 6th Annual Golf Tournament</h2>
+    <p>June 8 · Woodlands Golf Course · $175/golfer · Foursomes & sponsorships available</p>
+  </div>
+  <a href="https://crm.bloomerang.co/HostedDonation?ApiKey=pub_98963a49-a831-11ef-904d-0acbdc7b47c3&WidgetId=107136000" class="btn-white">Register Now →</a>
+</div>
+
+<!-- SUPPORT -->
+<section class="reveal">
+  <div class="section-header">
+    <p class="section-label">Get Involved</p>
+    <h2 class="section-title">How You Can Help</h2>
+    <p>Every contribution — big or small — helps us serve more families.</p>
+  </div>
+  <div class="support-grid">
+    <a href="https://www.canconnects.org/donate" class="support-card">
+      <span class="support-icon">❤️</span>
+      <h3>Donate</h3>
+      <p>Your financial gift directly funds food, shelter, and outreach for families in need.</p>
+    </a>
+    <a href="https://www.canconnects.org/volunteer-1" class="support-card">
+      <span class="support-icon">🙋</span>
+      <h3>Volunteer</h3>
+      <p>Join hundreds of volunteers who give their time to power our pantry, shelters, and events.</p>
+    </a>
+    <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits" class="support-card">
+      <span class="support-icon">💼</span>
+      <h3>Community Tax Credits</h3>
+      <p>Maryland businesses can receive tax credits for donating to CAN. Learn how today.</p>
+    </a>
+    <a href="https://www.canconnects.org/partners-supporters" class="support-card">
+      <span class="support-icon">🤝</span>
+      <h3>Partner With Us</h3>
+      <p>Align your organization with CAN's mission through sponsorship and community partnership.</p>
+    </a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal">
+  <div class="section-header">
+    <p class="section-label">Voices</p>
+    <h2 class="section-title">What People Say</h2>
+  </div>
+  <div class="testimonials-scroll">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"CAN's pantry saved my family during the hardest months of my life. The staff treated us with such dignity and kindness."</p>
+      <p class="testi-author">— Community Member, Baltimore Co.</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"The housing team helped me find shelter within days. I don't know where I'd be without them."</p>
+      <p class="testi-author">— Housing Services Recipient</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"Volunteering here was one of the most meaningful experiences of my life. You can feel the impact immediately."</p>
+      <p class="testi-author">— CAN Volunteer</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"The budget counseling sessions helped me get out of debt and start saving for the first time. Life-changing."</p>
+      <p class="testi-author">— Outreach Programs Participant</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="logo-icon">♥</div>
+        <strong style="font-family:'DM Serif Display',serif;font-size:1.4rem;color:white">CAN</strong>
+      </div>
+      <p>Community Assistance Network · Helping People, Changing Lives · Serving Baltimore County since 1964.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <a href="https://www.canconnects.org/food-pantry">Community Choice Pantry</a>
+      <a href="https://www.canconnects.org/homeless-shelters-housing-programs">Homeless & Housing</a>
+      <a href="https://www.canconnects.org/outreach-programs">Outreach Programs</a>
+      <a href="https://www.canconnects.org/careers">Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support Us</h4>
+      <a href="https://www.canconnects.org/donate">Donate</a>
+      <a href="https://www.canconnects.org/volunteer-1">Volunteer</a>
+      <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits">Tax Credits</a>
+      <a href="https://www.canconnects.org/events">Events</a>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="https://www.canconnects.org/about-us">Our Story</a>
+      <a href="https://www.canconnects.org/board-of-directors">Leadership</a>
+      <a href="https://www.canconnects.org/office-locations">Locations</a>
+      <a href="https://www.canconnects.org/contact-us">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Community Assistance Network, Inc. All rights reserved.</span>
+    <span><a href="https://www.canconnects.org/documentation" style="color:rgba(255,255,255,0.5);text-decoration:none">Civil Rights Statement</a></span>
+  </div>
+</footer>
+
+<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+
+// Back to top
+const topBtn = document.getElementById('topBtn');
+window.addEventListener('scroll', () => {
+  topBtn.classList.toggle('show', window.scrollY > 400);
+});
+
+// Program filter tabs
+function filterCards(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.prog-card').forEach(card => {
+    const show = cat === 'all' || card.dataset.cat === cat;
+    card.style.display = show ? 'block' : 'none';
+  });
+}
+</script>
+</body>
+</html>

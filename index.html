@@ -112,11 +112,11 @@ nav {
 
 /* ── HERO ── */
 .hero {
-  min-height: calc(100vh - 72px);
+  min-height: 78vh;
   background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #1a8fcb 100%);
   position: relative; overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr; align-items: center;
-  padding: 4rem 5vw;
+  padding: 2.5rem 5vw;
   gap: 3rem;
 }
 
@@ -180,40 +180,63 @@ nav {
 .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #ffd700; display: block; }
 .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
 
-/* Hero Event Card */
-.hero-card-wrap { position: relative; z-index: 2; }
-.hero-event-card {
-  background: white; border-radius: 24px;
+/* ── MEDIA CAROUSEL ── */
+.media-carousel {
+  position: relative; border-radius: 24px; overflow: hidden;
   box-shadow: 12px 12px 0 rgba(0,0,0,0.15), 0 30px 60px rgba(0,0,0,0.25);
-  overflow: hidden;
-  transform: rotate(2deg);
-  transition: transform var(--transition), box-shadow var(--transition);
+  background: #0d1b2a; aspect-ratio: 4/3;
+  transform: rotate(2deg); transition: transform var(--transition);
 }
-.hero-event-card:hover { transform: rotate(0deg) scale(1.02); box-shadow: 16px 16px 0 rgba(0,0,0,0.15), 0 40px 80px rgba(0,0,0,0.3); }
-
-.card-img {
-  width: 100%; height: 200px; object-fit: cover;
-  background: linear-gradient(135deg, #2d6a4f, #52b788);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem;
+.media-carousel:hover { transform: rotate(0deg) scale(1.01); }
+.mc-track {
+  display: flex; width: 100%; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
 }
-.card-body { padding: 1.5rem; }
-.card-tag { font-size: 0.7rem; font-weight: 700; color: var(--red); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-.card-body h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--dark); margin-bottom: 8px; }
-.card-meta { font-size: 0.85rem; color: var(--mid); margin-bottom: 16px; display: flex; gap: 12px; }
-.card-meta span { display: flex; align-items: center; gap: 4px; }
-.card-note {
-  background: #fff8e1; border-left: 3px solid #ffd700;
-  padding: 10px 14px; border-radius: 0 8px 8px 0;
-  font-size: 0.8rem; color: var(--mid); margin-bottom: 14px;
+.mc-slide {
+  min-width: 100%; height: 100%; position: relative; overflow: hidden;
 }
-.btn-card {
-  width: 100%; padding: 12px; background: linear-gradient(135deg, var(--blue), var(--blue-light));
-  color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
-  cursor: pointer; text-align: center; text-decoration: none; display: block;
-  transition: transform var(--transition);
+.mc-slide img, .mc-slide video {
+  width: 100%; height: 100%; object-fit: cover; display: block;
 }
-.btn-card:hover { transform: translateY(-2px); }
+.mc-placeholder { display: flex; align-items: center; justify-content: center; }
+.mc-placeholder-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #2d6a4f, #1a6fa8);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; text-align: center; color: rgba(255,255,255,0.8);
+  font-size: 0.9rem; line-height: 1.5;
+}
+.mc-upload-icon { font-size: 2.5rem; }
+.mc-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3); color: white;
+  width: 40px; height: 40px; border-radius: 50%; font-size: 1.4rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition); z-index: 10; line-height: 1;
+}
+.mc-btn:hover { background: rgba(255,255,255,0.4); }
+.mc-prev { left: 12px; }
+.mc-next { right: 12px; }
+.mc-dots {
+  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 10;
+}
+.mc-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.4); border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.2s; padding: 0;
+}
+.mc-dot.active { background: white; transform: scale(1.3); }
+.mc-upload-label {
+  position: absolute; bottom: 12px; right: 12px; z-index: 10;
+  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+  color: white; font-size: 0.75rem; font-weight: 600;
+  padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background var(--transition);
+}
+.mc-upload-label:hover { background: rgba(0,0,0,0.75); }
 
 /* ── SECTION COMMON ── */
 section { padding: 5rem 5vw; }
@@ -230,87 +253,81 @@ section { padding: 5rem 5vw; }
 
 /* ── PROGRAMS ── */
 .programs { background: var(--light); }
-
-.programs-tabs {
-  display: flex; gap: 8px; margin-bottom: 2.5rem; flex-wrap: wrap;
-}
-.tab-btn {
-  padding: 8px 20px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
-  border: 2px solid rgba(0,0,0,0.1); background: white; color: var(--mid);
-  cursor: pointer; transition: all var(--transition);
-}
-.tab-btn.active, .tab-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
-
 .programs-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem; perspective: 1200px;
 }
 
-/* Unified 3D card — icon + content in one surface */
 .prog-card {
-  background: white;
-  border-radius: 20px;
-  text-decoration: none; color: inherit;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.06);
+  background: white; border-radius: 22px;
+  text-decoration: none; color: inherit; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
   display: flex; flex-direction: column;
-  transform-style: preserve-3d;
-  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0);
+  border: 1px solid rgba(0,0,0,0.06);
+  transform: perspective(1000px) rotateX(0) rotateY(0) translateZ(0);
   transition: box-shadow 0.35s ease, transform 0.1s ease;
   will-change: transform;
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
 }
-.prog-card:hover {
-  box-shadow: 0 24px 60px rgba(0,0,0,0.16), 0 6px 20px rgba(0,0,0,0.1);
+.prog-card:hover { box-shadow: 0 24px 60px rgba(0,0,0,0.15), 0 6px 20px rgba(0,0,0,0.08); }
+
+/* Coloured banner with icon */
+.prog-banner {
+  height: 110px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.prog-banner::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 28px;
+  background: white;
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.prog-banner-icon {
+  font-size: 2.6rem; z-index: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
 }
 
-.prog-header {
-  padding: 2rem 1.75rem 1.5rem;
-  display: flex; align-items: flex-start; gap: 1rem;
+/* Title block */
+.prog-title-row {
+  padding: 0 1.4rem 0.6rem;
+  display: flex; align-items: center; gap: 10px;
 }
-.prog-icon-wrap {
-  width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.6rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
-  transform: translateZ(20px);
-}
-.prog-text h3 {
-  font-size: 1.05rem; font-weight: 700; color: var(--dark);
-  margin-bottom: 6px; line-height: 1.3;
-}
-.prog-text p { font-size: 0.83rem; color: var(--mid); line-height: 1.65; }
+.prog-title-row h3 { font-size: 1rem; font-weight: 700; color: var(--dark); }
 
-.prog-footer {
-  margin-top: auto;
-  padding: 0 1.75rem 1.5rem;
+.prog-desc {
+  padding: 0 1.4rem 1rem;
+  font-size: 0.8rem; color: var(--mid); line-height: 1.6;
+}
+
+/* Stacked link buttons */
+.prog-links-stack {
+  margin: 0 1.4rem; display: flex; flex-direction: column; gap: 6px;
+}
+.prog-link-row {
   display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 13px; border-radius: 10px; text-decoration: none;
+  font-size: 0.8rem; font-weight: 600;
+  background: rgba(0,0,0,0.03); color: var(--dark);
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: background 0.18s, transform 0.18s, border-color 0.18s;
 }
+.prog-link-row:hover {
+  background: color-mix(in srgb, var(--card-accent,#1a6fa8) 10%, white);
+  border-color: color-mix(in srgb, var(--card-accent,#1a6fa8) 30%, transparent);
+  transform: translateX(3px);
+}
+.prog-link-row span { font-size: 0.75rem; opacity: 0.45; }
+
+/* Primary CTA */
 .prog-cta {
-  font-size: 0.82rem; font-weight: 700; color: white;
-  padding: 8px 16px; border-radius: 10px; text-decoration: none;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: 1rem 1.4rem 1.4rem; padding: 12px;
+  border-radius: 12px; font-size: 0.85rem; font-weight: 700;
+  color: white; text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.prog-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
-.prog-cta .arr { transition: transform 0.2s ease; }
-.prog-cta:hover .arr { transform: translateX(3px); }
-
-.prog-sub-links { display: flex; flex-wrap: wrap; gap: 6px; }
-.prog-sub {
-  font-size: 0.75rem; color: var(--mid); text-decoration: none;
-  padding: 4px 0; border-bottom: 1px dashed rgba(0,0,0,0.15);
-  transition: color 0.2s, border-color 0.2s;
-}
-.prog-sub:hover { color: var(--blue); border-color: var(--blue); }
-
-/* Accent bar at top of card */
-.prog-card::before {
-  content: ''; display: block; height: 4px;
-  background: var(--card-accent, var(--blue));
-  border-radius: 20px 20px 0 0;
-}
+.prog-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.22); }
+.arr { transition: transform 0.2s; }
+.prog-cta:hover .arr { transform: translateX(4px); }
 
 /* ── IMPACT ── */
 .impact {
@@ -459,9 +476,9 @@ footer {
     </div>
   </a>
   <div class="nav-links">
-    <a href="#" class="active">Home</a>
+    <a href="#" class="active" data-en="Home" data-es="Inicio">Home</a>
     <div class="nav-dropdown">
-      <span>Programs & Services ▾</span>
+      <span data-en="Programs & Services ▾" data-es="Programas y Servicios ▾">Programs & Services ▾</span>
       <div class="dropdown-menu">
         <a href="https://www.canconnects.org/food-pantry">🥫 Community Choice Pantry</a>
         <a href="https://www.canconnects.org/pantry-resources">📋 Pantry Resources</a>
@@ -470,16 +487,16 @@ footer {
       </div>
     </div>
     <div class="nav-dropdown">
-      <span>Support Us ▾</span>
+      <span data-en="Support Us ▾" data-es="Apóyanos ▾">Support Us ▾</span>
       <div class="dropdown-menu">
-        <a href="https://www.canconnects.org/donate">❤️ Donate</a>
-        <a href="https://www.canconnects.org/volunteer-1">🙋 Volunteer</a>
-        <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits">💼 Tax Credits</a>
+        <a href="https://www.canconnects.org/donate" data-en="❤️ Donate" data-es="❤️ Donar">❤️ Donate</a>
+        <a href="https://www.canconnects.org/volunteer-1" data-en="🙋 Volunteer" data-es="🙋 Voluntariado">🙋 Volunteer</a>
+        <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits" data-en="💼 Tax Credits" data-es="💼 Créditos Fiscales">💼 Tax Credits</a>
       </div>
     </div>
-    <a href="https://www.canconnects.org/events">Events</a>
+    <a href="https://www.canconnects.org/events" data-en="Events" data-es="Eventos">Events</a>
     <div class="nav-dropdown">
-      <span>About Us ▾</span>
+      <span data-en="About Us ▾" data-es="Sobre Nosotros ▾">About Us ▾</span>
       <div class="dropdown-menu">
         <a href="https://www.canconnects.org/about-us">Our Story</a>
         <a href="https://www.canconnects.org/board-of-directors">Leadership</a>
@@ -490,11 +507,9 @@ footer {
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
-    <select class="lang-select" onchange="alert('Language switching coming soon!')">
-      <option>🌐 English</option>
-      <option>Español</option>
-      <option>中文</option>
-      <option>አማርኛ</option>
+    <select class="lang-select" id="langSel" onchange="setLang(this.value)">
+      <option value="en">🌐 English</option>
+      <option value="es">🌐 Español</option>
     </select>
     <a href="https://www.canconnects.org/donate" class="btn-donate">Donate Now</a>
   </div>
@@ -504,158 +519,109 @@ footer {
 <section class="hero">
   <div class="hero-dots"></div>
   <div class="hero-content">
-    <div class="hero-badge">Celebrating 60 Years of Service & Impact</div>
-    <h1>Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
-    <p>Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
+    <div class="hero-badge" data-en="Celebrating 60 Years of Service & Impact" data-es="Celebrando 60 Años de Servicio e Impacto">Celebrating 60 Years of Service & Impact</div>
+    <h1 data-en="Helping People,<br><em>Changing Lives</em><br>Since 1964" data-es="Ayudando a Personas,<br><em>Cambiando Vidas</em><br>Desde 1964">Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
+    <p data-en="Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone." data-es="Community Assistance Network empodera a los residentes del Condado de Baltimore a través del acceso a alimentos, apoyo de vivienda, programas de alcance y más. Nadie enfrenta la adversidad solo.">Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
     <div class="hero-actions">
       <a href="https://www.canconnects.org/programs-services" class="btn-primary">
-        <span>Our Programs</span> <span>→</span>
+        <span data-en="Our Programs" data-es="Nuestros Programas">Our Programs</span> <span>→</span>
       </a>
       <a href="https://www.canconnects.org/volunteer-1" class="btn-outline">
-        <span>Volunteer</span>
+        <span data-en="Volunteer" data-es="Voluntario">Volunteer</span>
       </a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num">60+</span><span class="stat-label">Years</span></div>
-      <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Families Served</span></div>
-      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Core Programs</span></div>
+      <div class="stat"><span class="stat-num">60+</span><span class="stat-label" data-en="Years" data-es="Años">Years</span></div>
+      <div class="stat"><span class="stat-num">50K+</span><span class="stat-label" data-en="Families Served" data-es="Familias Atendidas">Families Served</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-en="Core Programs" data-es="Programas Principales">Core Programs</span></div>
     </div>
   </div>
 
   <div class="hero-card-wrap">
-    <div class="hero-event-card">
-      <div class="card-img">⛳</div>
-      <div class="card-body">
-        <p class="card-tag">Upcoming Event</p>
-        <h3>6th Annual Charity Golf Tournament</h3>
-        <div class="card-meta">
-          <span>📅 Jun 8, 2025</span>
-          <span>📍 Woodlands Golf Course</span>
+    <!-- MEDIA CAROUSEL -->
+    <div class="media-carousel" id="mediaCarousel">
+      <div class="mc-track" id="mcTrack">
+        <!-- Placeholder slides — replace src with your own images/videos -->
+        <div class="mc-slide mc-placeholder" data-label="Upload your photos & videos below">
+          <div class="mc-placeholder-inner">
+            <span class="mc-upload-icon">🖼️</span>
+            <p>Your community photos<br>& videos appear here</p>
+          </div>
         </div>
-        <div class="card-note">Foursomes, individual tickets & sponsorships available. $175/golfer.</div>
-        <a href="https://crm.bloomerang.co/HostedDonation?ApiKey=pub_98963a49-a831-11ef-904d-0acbdc7b47c3&WidgetId=107136000" class="btn-card">Register Now →</a>
+        <div class="mc-slide mc-placeholder">
+          <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">
+            <span class="mc-upload-icon">📸</span>
+            <p>Pantry volunteers<br>in action</p>
+          </div>
+        </div>
+        <div class="mc-slide mc-placeholder">
+          <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">
+            <span class="mc-upload-icon">🎥</span>
+            <p>Community outreach<br>highlights</p>
+          </div>
+        </div>
       </div>
+      <button class="mc-btn mc-prev" onclick="mcMove(-1)">‹</button>
+      <button class="mc-btn mc-next" onclick="mcMove(1)">›</button>
+      <div class="mc-dots" id="mcDots"></div>
+      <!-- Upload area -->
+      <label class="mc-upload-label" title="Add image or video">
+        <input type="file" accept="image/*,video/*" multiple onchange="mcAddFiles(this.files)" style="display:none">
+        + Add Media
+      </label>
     </div>
   </div>
 </section>
 
 <!-- PROGRAMS -->
-<section class="programs reveal" id="programs">
-  <div class="section-header">
-    <p class="section-label">What We Do</p>
-    <h2 class="section-title">Programs & Services</h2>
-    <p>Click any program to learn more and access resources.</p>
+<section class="programs reveal" id="programs" style="padding:3rem 5vw 4rem">
+  <div class="section-header" style="margin-bottom:2rem">
+    <p class="section-label" data-en="What We Do" data-es="Lo Que Hacemos">What We Do</p>
+    <h2 class="section-title" data-en="Programs & Services" data-es="Programas y Servicios">Programs & Services</h2>
+    <p data-en="Click any program to learn more and access resources." data-es="Haga clic en cualquier programa para obtener más información y acceder a recursos.">Click any program to learn more and access resources.</p>
   </div>
 
-  <div class="programs-tabs">
-    <button class="tab-btn active" onclick="filterCards('all',this)">All Programs</button>
-    <button class="tab-btn" onclick="filterCards('food',this)">🥫 Food</button>
-    <button class="tab-btn" onclick="filterCards('housing',this)">🏠 Housing</button>
-    <button class="tab-btn" onclick="filterCards('outreach',this)">🤝 Outreach</button>
-    <button class="tab-btn" onclick="filterCards('careers',this)">💼 Careers & Finance</button>
-  </div>
+  <div class="programs-grid" id="progGrid" style="grid-template-columns:repeat(3,1fr)">
 
-  <div class="programs-grid" id="progGrid">
-
-    <a href="https://www.canconnects.org/food-pantry" class="prog-card" data-cat="food" style="--card-accent:#2d6a4f">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#2d6a4f,#52b788)">🥫</div>
-        <div class="prog-text">
-          <h3>Community Choice Pantry</h3>
-          <p>Dignified food access — shop our pantry like a grocery store and choose what works for your family.</p>
-        </div>
+    <a href="https://www.canconnects.org/food-pantry" class="prog-card" style="--card-accent:#2d6a4f">
+      <div class="prog-banner" style="background:linear-gradient(135deg,#2d6a4f,#52b788)">
+        <span class="prog-banner-icon">🥫</span>
       </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/food-pantry" class="prog-sub" onclick="event.stopPropagation()">Pantry Hours</a>
-          <a href="https://www.canconnects.org/pantry-resources" class="prog-sub" onclick="event.stopPropagation()">Income Guidelines</a>
-          <a href="https://www.canconnects.org/pantry-resources" class="prog-sub" onclick="event.stopPropagation()">Sign Up</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#2d6a4f,#52b788)">Learn more <span class="arr">→</span></span>
+      <div class="prog-title-row"><h3 data-en="Community Choice Pantry" data-es="Despensa Comunitaria">Community Choice Pantry</h3></div>
+      <p class="prog-desc" data-en="Dignified food access — shop our pantry like a grocery store and choose what works for your family." data-es="Acceso digno a alimentos — compre en nuestra despensa como en una tienda y elija lo que funciona para su familia.">Dignified food access — shop our pantry like a grocery store and choose what works for your family.</p>
+      <div class="prog-links-stack">
+        <a href="https://www.canconnects.org/food-pantry" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Pantry Hours" data-es="Horario de la Despensa">Pantry Hours</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Income Guidelines" data-es="Guías de Ingresos">Income Guidelines</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Sign Up" data-es="Registrarse">Sign Up</span> <span>→</span></a>
       </div>
+      <span class="prog-cta" style="background:linear-gradient(135deg,#2d6a4f,#52b788)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
-    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" data-cat="housing" style="--card-accent:#1a6fa8">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">🏠</div>
-        <div class="prog-text">
-          <h3>Homeless & Housing Services</h3>
-          <p>Emergency shelter, transitional housing, and CAN Shelter Referral for individuals and families.</p>
-        </div>
+    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" style="--card-accent:#1a6fa8">
+      <div class="prog-banner" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">
+        <span class="prog-banner-icon">🏠</span>
       </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-sub" onclick="event.stopPropagation()">Shelter Referral</a>
-          <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-sub" onclick="event.stopPropagation()">Apply for Housing</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">Learn more <span class="arr">→</span></span>
+      <div class="prog-title-row"><h3 data-en="Homeless & Housing Services" data-es="Servicios de Vivienda">Homeless & Housing Services</h3></div>
+      <p class="prog-desc" data-en="Emergency shelter, transitional housing, and CAN Shelter Referral for individuals and families." data-es="Refugio de emergencia, vivienda transitoria y derivación de refugio CAN para personas y familias.">Emergency shelter, transitional housing, and CAN Shelter Referral for individuals and families.</p>
+      <div class="prog-links-stack">
+        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="CAN Shelter Referral" data-es="Derivación de Refugio CAN">CAN Shelter Referral</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Apply for Housing" data-es="Solicitar Vivienda">Apply for Housing</span> <span>→</span></a>
       </div>
+      <span class="prog-cta" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
-    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="outreach" style="--card-accent:#7b2d8b">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">🤝</div>
-        <div class="prog-text">
-          <h3>Outreach Programs</h3>
-          <p>Financial assistance eligibility, SNAP enrollment, and street outreach for vulnerable residents.</p>
-        </div>
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" style="--card-accent:#7b2d8b">
+      <div class="prog-banner" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">
+        <span class="prog-banner-icon">🤝</span>
       </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/outreach-programs" class="prog-sub" onclick="event.stopPropagation()">Financial Assistance</a>
-          <a href="https://www.canconnects.org/outreach-programs" class="prog-sub" onclick="event.stopPropagation()">SNAP</a>
-          <a href="https://www.canconnects.org/outreach-programs" class="prog-sub" onclick="event.stopPropagation()">Street Outreach</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">Learn more <span class="arr">→</span></span>
+      <div class="prog-title-row"><h3 data-en="Outreach Programs" data-es="Programas de Alcance">Outreach Programs</h3></div>
+      <p class="prog-desc" data-en="Financial assistance eligibility, SNAP enrollment, and street outreach for vulnerable residents." data-es="Elegibilidad para asistencia financiera, inscripción en SNAP y alcance callejero para residentes vulnerables.">Financial assistance eligibility, SNAP enrollment, and street outreach for vulnerable residents.</p>
+      <div class="prog-links-stack">
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Financial Assistance" data-es="Asistencia Financiera">Financial Assistance</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="SNAP Enrollment" data-es="Inscripción en SNAP">SNAP Enrollment</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Street Outreach" data-es="Alcance Callejero">Street Outreach</span> <span>→</span></a>
       </div>
-    </a>
-
-    <a href="https://www.canconnects.org/careers" class="prog-card" data-cat="careers" style="--card-accent:#c0392b">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">💼</div>
-        <div class="prog-text">
-          <h3>Career Opportunities</h3>
-          <p>Join our team and make a direct impact. We're always looking for passionate people.</p>
-        </div>
-      </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/careers" class="prog-sub" onclick="event.stopPropagation()">View Open Roles</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">Apply now <span class="arr">→</span></span>
-      </div>
-    </a>
-
-    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="careers" style="--card-accent:#d4790a">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#d4790a,#f59e0b)">💰</div>
-        <div class="prog-text">
-          <h3>Budget Counseling</h3>
-          <p>One-on-one financial guidance to manage expenses, reduce debt, and plan for a stable future.</p>
-        </div>
-      </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/outreach-programs" class="prog-sub" onclick="event.stopPropagation()">Learn More</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#d4790a,#f59e0b)">Learn more <span class="arr">→</span></span>
-      </div>
-    </a>
-
-    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" data-cat="outreach" style="--card-accent:#065f46">
-      <div class="prog-header">
-        <div class="prog-icon-wrap" style="background:linear-gradient(135deg,#065f46,#10b981)">🚌</div>
-        <div class="prog-text">
-          <h3>Homeless Street Outreach</h3>
-          <p>Mobile teams connecting unsheltered residents with services, meals, and pathways to housing.</p>
-        </div>
-      </div>
-      <div class="prog-footer">
-        <div class="prog-sub-links">
-          <a href="https://www.canconnects.org/outreach-programs" class="prog-sub" onclick="event.stopPropagation()">About Outreach</a>
-        </div>
-        <span class="prog-cta" style="background:linear-gradient(135deg,#065f46,#10b981)">Learn more <span class="arr">→</span></span>
-      </div>
+      <span class="prog-cta" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
   </div>
@@ -788,28 +754,83 @@ footer {
 <button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+// Language switching
+function setLang(lang) {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const txt = el.getAttribute('data-' + lang);
+    if (!txt) return;
+    if (el.tagName === 'H1' || el.classList.contains('prog-cta')) {
+      el.innerHTML = txt;
+    } else {
+      el.textContent = txt;
+    }
+  });
+  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+}
+
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
 const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 reveals.forEach(r => obs.observe(r));
 
 // Back to top
 const topBtn = document.getElementById('topBtn');
-window.addEventListener('scroll', () => {
-  topBtn.classList.toggle('show', window.scrollY > 400);
-});
+window.addEventListener('scroll', () => topBtn.classList.toggle('show', window.scrollY > 400));
 
-// Program filter tabs
-function filterCards(cat, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.prog-card').forEach(card => {
-    const show = cat === 'all' || card.dataset.cat === cat;
-    card.style.display = show ? 'flex' : 'none';
-  });
+// ── MEDIA CAROUSEL ──
+let mcIdx = 0;
+const track = document.getElementById('mcTrack');
+const dotsWrap = document.getElementById('mcDots');
+
+function mcRender() {
+  const slides = track.querySelectorAll('.mc-slide');
+  track.style.transform = `translateX(-${mcIdx * 100}%)`;
+  dotsWrap.querySelectorAll('.mc-dot').forEach((d,i) => d.classList.toggle('active', i === mcIdx));
+  // pause/play videos
+  slides.forEach((s,i) => { const v = s.querySelector('video'); if(v) i===mcIdx ? v.play() : v.pause(); });
 }
+
+function mcBuildDots() {
+  const n = track.querySelectorAll('.mc-slide').length;
+  dotsWrap.innerHTML = '';
+  for(let i=0;i<n;i++) {
+    const d = document.createElement('button');
+    d.className = 'mc-dot' + (i===mcIdx?' active':'');
+    d.onclick = () => { mcIdx=i; mcRender(); };
+    dotsWrap.appendChild(d);
+  }
+}
+
+function mcMove(dir) {
+  const n = track.querySelectorAll('.mc-slide').length;
+  mcIdx = (mcIdx + dir + n) % n;
+  mcRender();
+}
+
+function mcAddFiles(files) {
+  Array.from(files).forEach(file => {
+    const slide = document.createElement('div');
+    slide.className = 'mc-slide';
+    const url = URL.createObjectURL(file);
+    if (file.type.startsWith('video/')) {
+      const v = document.createElement('video');
+      v.src = url; v.loop = true; v.muted = true; v.playsInline = true;
+      slide.appendChild(v);
+    } else {
+      const img = document.createElement('img');
+      img.src = url; img.alt = file.name;
+      slide.appendChild(img);
+    }
+    track.appendChild(slide);
+  });
+  mcBuildDots(); mcRender();
+}
+
+mcBuildDots();
+// Auto-advance every 4s
+setInterval(() => mcMove(1), 4000);
 
 // 3D tilt on program cards
 document.querySelectorAll('.prog-card').forEach(card => {

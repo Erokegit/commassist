@@ -201,16 +201,15 @@ nav {
 .mc-track {
   display: flex;
   width: 100%; height: 100%;
-  overflow: hidden;
   transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
 }
 .mc-slide {
   flex: 0 0 100%; width: 100%; height: 100%;
-  position: relative; overflow: hidden;
-  flex-shrink: 0;
+  position: relative;
 }
 .mc-slide img, .mc-slide video {
   width: 100%; height: 100%; object-fit: cover; display: block;
+  border-radius: 0;
 }
 .mc-placeholder { display: flex; align-items: center; justify-content: center; }
 .mc-placeholder-inner {
@@ -547,21 +546,12 @@ footer {
     <div class="hero-card-wrap">
       <div class="media-carousel" id="mediaCarousel">
         <div class="mc-track" id="mcTrack">
-        <div class="mc-slide">
-          <img src="media/img1.avif" alt="CAN community volunteers">
-        </div>
-        <div class="mc-slide">
-          <img src="media/img2.avif" alt="CAN community event">
-        </div>
-        <div class="mc-slide">
-          <img src="media/img3.avif" alt="CAN outreach program">
-        </div>
-        <div class="mc-slide">
-          <img src="media/img4.avif" alt="CAN families served">
-        </div>
-        <div class="mc-slide">
-          <img src="media/img5.avif" alt="CAN pantry volunteers">
-        </div>
+        <div class="mc-slide"><img src="media/img1.avif" alt="CAN community volunteers"></div>
+        <div class="mc-slide"><img src="media/img2.avif" alt="CAN community event"></div>
+        <div class="mc-slide"><img src="media/img3.avif" alt="CAN outreach program"></div>
+        <div class="mc-slide"><img src="media/img4.avif" alt="CAN families served"></div>
+        <div class="mc-slide"><img src="media/img5.avif" alt="CAN pantry volunteers"></div>
+        <div class="mc-slide"><img src="media/img6.avif" alt="CAN community impact"></div>
         </div>
         <button class="mc-btn mc-prev" onclick="mcMove(-1)">‹</button>
         <button class="mc-btn mc-next" onclick="mcMove(1)">›</button>

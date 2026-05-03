@@ -81,7 +81,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop
 .expand-trigger .chevron{transition:transform 0.2s;font-size:0.75rem;color:var(--mid)}
 .expand-trigger.open .chevron{transform:rotate(180deg)}
 .expand-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease;font-size:0.84rem;color:var(--mid);line-height:1.65}
-.expand-content.open{max-height:300px}
+.expand-content.open{max-height:600px}
 .expand-content-inner{padding:0 16px 14px}
 
 /* VIDEO SECTION */
@@ -122,6 +122,8 @@ footer{background:var(--dark);color:rgba(255,255,255,0.7);padding:3rem 5vw 1.5re
 .social-links a{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:0.9rem;transition:background var(--transition)}
 .social-links a:hover{background:rgba(255,255,255,0.18)}
 
+.hol-chip{padding:7px 10px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid rgba(45,106,79,0.15);border-radius:9px;font-size:0.76rem;font-weight:600;color:var(--dark);transition:transform 0.15s,box-shadow 0.15s;cursor:default}
+.hol-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,106,79,0.15)}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
@@ -217,17 +219,34 @@ footer{background:var(--dark);color:rgba(255,255,255,0.7);padding:3rem 5vw 1.5re
             📅 Holiday Schedule <span class="chevron">▼</span>
           </button>
           <div class="expand-content">
-            <div class="expand-content-inner">The pantry observes all major federal holidays. Check our <a href="https://www.canconnects.org/food-pantry" style="color:var(--green)">website</a> or call ahead for closures during holiday weeks.</div>
+            <div class="expand-content-inner">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:4px">
+                <div class="hol-chip">🎊 Jan 1 — New Year's Day</div>
+                <div class="hol-chip">✊ Jan 20 — MLK Jr. Day</div>
+                <div class="hol-chip">🏛️ Feb 17 — Presidents' Day</div>
+                <div class="hol-chip">✝️ Apr 18 — Good Friday</div>
+                <div class="hol-chip">⚔️ May 26 — Memorial Day</div>
+                <div class="hol-chip">🗽 Jun 19 — Juneteenth</div>
+                <div class="hol-chip">🎆 Jul 4 — Independence Day</div>
+                <div class="hol-chip">👷 Sep 1 — Labor Day</div>
+                <div class="hol-chip">🦃 Nov 27 — Thanksgiving</div>
+                <div class="hol-chip">🦃 Nov 28 — Thanksgiving Friday</div>
+                <div class="hol-chip">🎄 Dec 24 — Christmas Eve</div>
+                <div class="hol-chip">🎄 Dec 25 — Christmas Day</div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="expand-item">
           <button class="expand-trigger" onclick="toggle(this)">
             🌧️ Weather Information <span class="chevron">▼</span>
           </button>
           <div class="expand-content">
-            <div class="expand-content-inner">When Baltimore County Public Schools are closed due to weather, the pantry is also closed. Check local news or our social media for updates.</div>
+            <div class="expand-content-inner">When Baltimore County Public Schools are closed due to weather, the pantry is also closed. Follow our social media pages for real-time updates on weather closures.</div>
           </div>
         </div>
+
         <div class="expand-item">
           <button class="expand-trigger" onclick="toggle(this)">
             📦 Pantry Resources <span class="chevron">▼</span>

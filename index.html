@@ -3,476 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAN – Community Assistance Network | Helping People, Changing Lives</title>
+<title>Community Choice Pantry | CAN</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --red: #c0392b;
-  --red-light: #e74c3c;
-  --blue: #1a6fa8;
-  --blue-dark: #0d4f7a;
-  --blue-light: #2980b9;
-  --cream: #fdf8f3;
-  --dark: #1a1a2e;
-  --mid: #4a5568;
-  --light: #f7f9fc;
-  --white: #ffffff;
+  --green: #2d6a4f; --green-light: #52b788;
+  --blue: #1a6fa8; --blue-dark: #0d4f7a;
+  --red: #c0392b; --red-light: #e74c3c;
+  --dark: #1a1a2e; --mid: #4a5568; --light: #f7f9fc; --cream: #fdf8f3;
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
   --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.18);
-  --shadow-3d: 6px 6px 0 rgba(0,0,0,0.12);
-  --radius: 16px;
-  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --radius: 16px; --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.08);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:72px;box-shadow:var(--shadow-sm)}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--red),var(--red-light));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.4rem;box-shadow:3px 3px 0 rgba(192,57,43,0.3);transform:rotate(-3deg);transition:transform var(--transition)}
+.logo-wrap:hover .logo-icon{transform:rotate(0deg) scale(1.05)}
+.logo-text strong{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--blue-dark);display:block;line-height:1.1}
+.logo-text span{font-size:0.7rem;color:var(--mid);letter-spacing:0.05em}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a,.nav-dropdown>span{padding:8px 16px;border-radius:8px;font-size:0.9rem;font-weight:500;color:var(--mid);text-decoration:none;cursor:pointer;transition:background var(--transition),color var(--transition);white-space:nowrap}
+.nav-links a:hover,.nav-dropdown>span:hover{background:var(--light);color:var(--blue)}
+.nav-links a.active{background:var(--green);color:white}
+.nav-dropdown{position:relative}
+.nav-dropdown:hover .dropdown-menu{opacity:1;pointer-events:all;transform:translateY(0)}
+.dropdown-menu{position:absolute;top:calc(100% + 8px);left:0;background:white;border-radius:12px;box-shadow:var(--shadow-md);padding:8px;min-width:220px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all var(--transition);border:1px solid rgba(0,0,0,0.06)}
+.dropdown-menu a{display:block;padding:10px 14px;border-radius:8px;font-size:0.875rem;color:var(--mid);text-decoration:none;transition:background var(--transition),color var(--transition)}
+.dropdown-menu a:hover{background:var(--light);color:var(--blue)}
+.lang-select{padding:6px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.15);font-size:0.85rem;color:var(--mid);background:white;cursor:pointer;margin-right:8px}
+.btn-donate{background:linear-gradient(135deg,var(--red),var(--red-light));color:white;border:none;padding:10px 22px;border-radius:10px;font-weight:600;font-size:0.9rem;cursor:pointer;box-shadow:3px 3px 0 rgba(192,57,43,0.3);text-decoration:none;transition:transform var(--transition),box-shadow var(--transition)}
+.btn-donate:hover{transform:translateY(-2px);box-shadow:5px 5px 0 rgba(192,57,43,0.3)}
 
-html { scroll-behavior: smooth; }
+/* PAGE HEADER */
+.page-hero{background:linear-gradient(135deg,var(--green),var(--green-light));padding:3rem 5vw;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.page-hero-text h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);color:white;margin-bottom:0.5rem}
+.page-hero-text p{color:rgba(255,255,255,0.85);font-size:1rem;max-width:520px;line-height:1.6}
+.page-hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-white{background:white;color:var(--green);padding:12px 24px;border-radius:12px;font-weight:700;font-size:0.9rem;text-decoration:none;box-shadow:4px 4px 0 rgba(0,0,0,0.12);transition:transform var(--transition),box-shadow var(--transition);display:inline-flex;align-items:center;gap:6px}
+.btn-white:hover{transform:translateY(-2px);box-shadow:6px 6px 0 rgba(0,0,0,0.15)}
+.btn-outline-white{border:2px solid rgba(255,255,255,0.7);color:white;padding:12px 24px;border-radius:12px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:background var(--transition);display:inline-flex;align-items:center;gap:6px}
+.btn-outline-white:hover{background:rgba(255,255,255,0.15)}
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--dark);
-  overflow-x: hidden;
-}
+/* MAIN LAYOUT */
+.page-body{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;padding:2.5rem 5vw;max-width:1300px;margin:0 auto}
 
-/* ── NAV ── */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding: 0 2rem;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 72px;
-  box-shadow: var(--shadow-sm);
-}
+/* INFO CARDS */
+.info-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.06);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition)}
+.info-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.card-header{padding:1.25rem 1.5rem;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;gap:10px}
+.card-header h2{font-size:1rem;font-weight:700;color:var(--dark)}
+.card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.card-body{padding:1.25rem 1.5rem}
 
-.logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.logo-icon {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--red), var(--red-light));
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 1.4rem;
-  box-shadow: 3px 3px 0 rgba(192,57,43,0.3);
-  transform: rotate(-3deg);
-  transition: transform var(--transition);
-}
-.logo-wrap:hover .logo-icon { transform: rotate(0deg) scale(1.05); }
-.logo-text { line-height: 1.1; }
-.logo-text strong { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--blue-dark); display: block; }
-.logo-text span { font-size: 0.7rem; color: var(--mid); letter-spacing: 0.05em; }
+/* HOURS */
+.hours-grid{display:grid;gap:8px}
+.hour-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:10px;background:var(--light);font-size:0.875rem}
+.hour-row .day{font-weight:600;color:var(--dark)}
+.hour-row .time{color:var(--mid)}
+.hour-row.closed .time{color:var(--red);font-weight:600}
+.notice{margin-top:12px;padding:10px 14px;background:#fff8e1;border-left:3px solid #ffc107;border-radius:0 8px 8px 0;font-size:0.8rem;color:var(--mid);line-height:1.5}
 
-.nav-links { display: flex; align-items: center; gap: 4px; }
-.nav-links a, .nav-dropdown > span {
-  padding: 8px 16px; border-radius: 8px;
-  font-size: 0.9rem; font-weight: 500; color: var(--mid);
-  text-decoration: none; cursor: pointer;
-  transition: background var(--transition), color var(--transition);
-  white-space: nowrap;
-}
-.nav-links a:hover, .nav-dropdown > span:hover { background: var(--light); color: var(--blue); }
-.nav-links a.active { background: var(--blue); color: white; }
+/* REQUIREMENTS */
+.req-list{display:flex;flex-direction:column;gap:8px}
+.req-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:10px;background:var(--light);font-size:0.875rem;line-height:1.5}
+.req-item .req-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
 
-.nav-dropdown { position: relative; }
-.nav-dropdown:hover .dropdown-menu { opacity: 1; pointer-events: all; transform: translateY(0); }
-.dropdown-menu {
-  position: absolute; top: calc(100% + 8px); left: 0;
-  background: white; border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  padding: 8px; min-width: 220px;
-  opacity: 0; pointer-events: none;
-  transform: translateY(-8px);
-  transition: all var(--transition);
-  border: 1px solid rgba(0,0,0,0.06);
-}
-.dropdown-menu a {
-  display: block; padding: 10px 14px; border-radius: 8px;
-  font-size: 0.875rem; color: var(--mid); text-decoration: none;
-  transition: background var(--transition), color var(--transition);
-}
-.dropdown-menu a:hover { background: var(--light); color: var(--blue); }
+/* EXPANDABLE ROWS */
+.expand-list{display:flex;flex-direction:column;gap:6px}
+.expand-item{border-radius:10px;border:1px solid rgba(0,0,0,0.08);overflow:hidden}
+.expand-trigger{width:100%;padding:12px 16px;background:white;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:0.875rem;font-weight:600;color:var(--dark);text-align:left;transition:background var(--transition)}
+.expand-trigger:hover{background:var(--light)}
+.expand-trigger .chevron{transition:transform 0.2s;font-size:0.75rem;color:var(--mid)}
+.expand-trigger.open .chevron{transform:rotate(180deg)}
+.expand-content{max-height:0;overflow:hidden;transition:max-height 0.3s ease;font-size:0.84rem;color:var(--mid);line-height:1.65}
+.expand-content.open{max-height:300px}
+.expand-content-inner{padding:0 16px 14px}
 
-.lang-select {
-  padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.15);
-  font-size: 0.85rem; color: var(--mid); background: white; cursor: pointer;
-  margin-right: 8px;
-}
-.btn-donate {
-  background: linear-gradient(135deg, var(--red), var(--red-light));
-  color: white; border: none; padding: 10px 22px; border-radius: 10px;
-  font-weight: 600; font-size: 0.9rem; cursor: pointer;
-  box-shadow: 3px 3px 0 rgba(192,57,43,0.3);
-  transform: translateY(0);
-  transition: transform var(--transition), box-shadow var(--transition);
-  text-decoration: none;
-}
-.btn-donate:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(192,57,43,0.3); }
+/* VIDEO SECTION */
+.video-card{background:white;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.06);overflow:hidden}
+.video-placeholder{height:220px;background:linear-gradient(135deg,var(--green),var(--green-light));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;transition:opacity var(--transition)}
+.video-placeholder:hover{opacity:0.9}
+.play-btn{width:60px;height:60px;background:rgba(255,255,255,0.2);border-radius:50%;border:2px solid rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.video-placeholder p{color:rgba(255,255,255,0.85);font-size:0.9rem;font-weight:600}
+.video-links{padding:1rem 1.5rem;display:flex;gap:1rem}
+.video-link{display:flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:var(--green);text-decoration:none;padding:8px 14px;border-radius:8px;border:1px solid rgba(45,106,79,0.2);transition:background var(--transition)}
+.video-link:hover{background:rgba(45,106,79,0.06)}
 
-/* ── HERO ── */
-.hero {
-  min-height: calc(100vh - 72px);
-  background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 60%, #1a8fcb 100%);
-  position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: 2rem 5vw 2.5rem;
-}
-.hero-top {
-  display: grid; grid-template-columns: 1fr 1fr;
-  align-items: center; gap: 3rem; position: relative; z-index: 2;
-}
-.hero-programs-bar {
-  position: relative; z-index: 2;
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
-}
+/* RULES CARD — full width */
+.full-width{grid-column:1/-1}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.rule-chip{padding:10px 14px;background:var(--light);border-radius:10px;font-size:0.82rem;color:var(--mid);display:flex;align-items:center;gap:8px;line-height:1.4}
 
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 60%),
-              radial-gradient(ellipse at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%);
-}
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem}
+.team-card{background:white;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid rgba(0,0,0,0.06);transition:transform var(--transition),box-shadow var(--transition)}
+.team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.team-photo{width:100%;aspect-ratio:1;object-fit:cover;object-position:top;background:linear-gradient(135deg,#e0f2fe,#bae6fd);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.team-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.team-info{padding:0.875rem}
+.team-info h3{font-size:0.875rem;font-weight:700;color:var(--dark);margin-bottom:2px}
+.team-info p{font-size:0.75rem;color:var(--green);font-weight:600;margin-bottom:6px}
+.team-info blockquote{font-size:0.72rem;color:var(--mid);line-height:1.5;font-style:italic}
 
-.hero-dots {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-}
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,0.7);padding:3rem 5vw 1.5rem;margin-top:3rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
+.footer-brand p{font-size:0.85rem;line-height:1.7;margin-top:12px;max-width:260px}
+.footer-col h4{color:white;font-weight:700;margin-bottom:1rem;font-size:0.9rem}
+.footer-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:8px;transition:color var(--transition)}
+.footer-col a:hover{color:white}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.25rem;display:flex;justify-content:space-between;font-size:0.8rem;flex-wrap:wrap;gap:8px}
+.social-links{display:flex;gap:10px}
+.social-links a{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;font-size:0.9rem;transition:background var(--transition)}
+.social-links a:hover{background:rgba(255,255,255,0.18)}
 
-.hero-content { position: relative; z-index: 2; }
+.hol-chip{padding:7px 10px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid rgba(45,106,79,0.15);border-radius:9px;font-size:0.76rem;font-weight:600;color:var(--dark);transition:transform 0.15s,box-shadow 0.15s;cursor:default}
+.hol-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(45,106,79,0.15)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-  color: white; padding: 6px 16px; border-radius: 100px; font-size: 0.8rem;
-  font-weight: 500; letter-spacing: 0.05em; margin-bottom: 1.5rem;
-  backdrop-filter: blur(8px);
+@media(max-width:768px){
+  .page-body{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
 }
-.hero-badge::before { content: '🎉'; }
-
-.hero h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: white; line-height: 1.1; margin-bottom: 1.25rem;
-}
-.hero h1 em { font-style: italic; color: #ffd700; }
-
-.hero p {
-  font-size: 1.1rem; color: rgba(255,255,255,0.85); line-height: 1.7;
-  margin-bottom: 2rem; max-width: 480px;
-}
-
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-  background: white; color: var(--blue-dark);
-  padding: 14px 28px; border-radius: 12px; font-weight: 700;
-  font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 6px 7px 0 rgba(0,0,0,0.15); }
-.btn-outline {
-  border: 2px solid rgba(255,255,255,0.6); color: white;
-  padding: 14px 28px; border-radius: 12px; font-weight: 600;
-  font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-  transition: background var(--transition), border-color var(--transition);
-}
-.btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; }
-
-.hero-stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
-.stat { text-align: center; }
-.stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #ffd700; display: block; }
-.stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
-.hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,4vw,3.2rem); color:white; line-height:1.1; margin-bottom:1rem; }
-.hero h1 em { font-style:italic; color:#ffd700; }
-.hero p { font-size:0.95rem; color:rgba(255,255,255,0.85); line-height:1.7; margin-bottom:1.25rem; max-width:480px; }
-.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
-
-/* ── MEDIA CAROUSEL ── */
-.media-carousel {
-  position: relative; border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 12px 12px 0 rgba(0,0,0,0.15), 0 30px 60px rgba(0,0,0,0.25);
-  background: #0d1b2a; aspect-ratio: 4/3;
-  transform: rotate(2deg); transition: transform var(--transition);
-}
-.media-carousel:hover { transform: rotate(0deg) scale(1.01); }
-.mc-track {
-  display: flex;
-  width: 100%; height: 100%;
-  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
-}
-.mc-slide {
-  flex: 0 0 100%; width: 100%; height: 100%;
-  position: relative;
-}
-.mc-slide img, .mc-slide video {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  border-radius: 0;
-}
-.mc-placeholder { display: flex; align-items: center; justify-content: center; }
-.mc-placeholder-inner {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #2d6a4f, #1a6fa8);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 12px; text-align: center; color: rgba(255,255,255,0.8);
-  font-size: 0.9rem; line-height: 1.5;
-}
-.mc-upload-icon { font-size: 2.5rem; }
-.mc-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.3); color: white;
-  width: 40px; height: 40px; border-radius: 50%; font-size: 1.4rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background var(--transition); z-index: 10; line-height: 1;
-}
-.mc-btn:hover { background: rgba(255,255,255,0.4); }
-.mc-prev { left: 12px; }
-.mc-next { right: 12px; }
-.mc-dots {
-  position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 10;
-}
-.mc-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,0.4); border: none; cursor: pointer;
-  transition: background 0.2s, transform 0.2s; padding: 0;
-}
-.mc-dot.active { background: white; transform: scale(1.3); }
-.mc-upload-label {
-  position: absolute; bottom: 12px; right: 12px; z-index: 10;
-  background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
-  color: white; font-size: 0.75rem; font-weight: 600;
-  padding: 6px 12px; border-radius: 8px; cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: background var(--transition);
-}
-.mc-upload-label:hover { background: rgba(0,0,0,0.75); }
-
-/* ── SECTION COMMON ── */
-section { padding: 5rem 5vw; }
-.section-label {
-  font-size: 0.75rem; font-weight: 700; color: var(--blue);
-  letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px;
-}
-.section-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem); color: var(--dark); line-height: 1.2;
-}
-.section-header { margin-bottom: 3rem; }
-.section-header p { margin-top: 12px; color: var(--mid); font-size: 1.05rem; max-width: 560px; }
-
-/* ── PROGRAMS BAR (inside hero) ── */
-.prog-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 18px;
-  text-decoration: none; color: white; overflow: hidden;
-  display: flex; flex-direction: column;
-  transform: perspective(1000px) rotateX(0) rotateY(0) translateZ(0);
-  transition: box-shadow 0.3s ease, transform 0.1s ease, background 0.3s ease;
-  will-change: transform;
-}
-.prog-card:hover {
-  background: rgba(255,255,255,0.18);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
-
-.prog-banner {
-  height: 80px; display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden; border-radius: 14px 14px 0 0;
-}
-.prog-banner::after {
-  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 22px;
-  background: var(--banner-bg, rgba(255,255,255,0.1));
-  clip-path: ellipse(55% 100% at 50% 100%);
-}
-.prog-banner-icon {
-  font-size: 3rem; z-index: 1;
-  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
-}
-.prog-title-row {
-  padding: 0.5rem 1.1rem 0.3rem;
-}
-.prog-title-row h3 { font-size: 0.9rem; font-weight: 700; color: white; }
-.prog-desc {
-  padding: 0 1.1rem 0.75rem;
-  font-size: 0.75rem; color: rgba(255,255,255,0.72); line-height: 1.5;
-}
-.prog-links-stack {
-  margin: 0 1.1rem; display: flex; flex-direction: column; gap: 5px;
-}
-.prog-link-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 7px 11px; border-radius: 9px; text-decoration: none;
-  font-size: 0.75rem; font-weight: 600; color: white;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  transition: background 0.18s, transform 0.18s;
-}
-.prog-link-row:hover {
-  background: rgba(255,255,255,0.22);
-  transform: translateX(3px);
-}
-.prog-link-row span { opacity: 0.6; font-size: 0.75rem; }
-.prog-cta {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  margin: 0.75rem 1.1rem 1.1rem; padding: 10px;
-  border-radius: 11px; font-size: 0.82rem; font-weight: 700;
-  color: white; text-decoration: none;
-  border: 1.5px solid rgba(255,255,255,0.5);
-  transition: background 0.2s, transform 0.2s;
-}
-.prog-cta:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-.arr { transition: transform 0.2s; }
-.prog-cta:hover .arr { transform: translateX(4px); }
-
-/* Hide old standalone programs section */
-.programs { display: none; }
-
-/* ── IMPACT ── */
-.impact {
-  background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
-  position: relative; overflow: hidden;
-}
-.impact::before {
-  content: '60'; position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
-  font-family: 'DM Serif Display', serif; font-size: 25vw; color: rgba(255,255,255,0.03);
-  line-height: 1; pointer-events: none;
-}
-
-.impact .section-title { color: white; }
-.impact .section-label { color: #ffd700; }
-.impact p { color: rgba(255,255,255,0.7); }
-
-.impact-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem; margin-top: 3rem;
-}
-.impact-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius); padding: 2rem 1.5rem;
-  text-align: center;
-  transform: translateY(0);
-  transition: transform var(--transition), background var(--transition);
-  backdrop-filter: blur(8px);
-}
-.impact-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.1); }
-.impact-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 3rem; color: #ffd700; display: block; margin-bottom: 8px;
-}
-.impact-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
-
-/* ── EVENT BANNER ── */
-.event-banner {
-  background: linear-gradient(135deg, var(--red-light), var(--red));
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 2.5rem 5vw; gap: 2rem; flex-wrap: wrap;
-}
-.event-banner-text { color: white; }
-.event-banner-text h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
-.event-banner-text p { opacity: 0.9; font-size: 0.95rem; }
-.btn-white {
-  background: white; color: var(--red); padding: 14px 28px; border-radius: 12px;
-  font-weight: 700; text-decoration: none; white-space: nowrap;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
-  transition: transform var(--transition), box-shadow var(--transition);
-  display: inline-block;
-}
-.btn-white:hover { transform: translateY(-3px); box-shadow: 6px 7px 0 rgba(0,0,0,0.15); }
-
-/* ── SUPPORT ── */
-.support-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-.support-card {
-  background: white; border-radius: var(--radius); padding: 2rem;
-  text-align: center; text-decoration: none; color: inherit;
-  border: 2px solid transparent;
-  box-shadow: var(--shadow-sm);
-  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-}
-.support-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.support-icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
-.support-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
-.support-card p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
-
-/* ── TESTIMONIAL ── */
-.testimonials { background: var(--light); }
-.testimonials-scroll {
-  display: flex; gap: 1.5rem; overflow-x: auto;
-  padding-bottom: 1rem; scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-.testimonials-scroll::-webkit-scrollbar { height: 4px; }
-.testimonials-scroll::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
-.testi-card {
-  min-width: 320px; background: white; border-radius: var(--radius); padding: 1.75rem;
-  box-shadow: var(--shadow-sm); scroll-snap-align: start;
-  border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0;
-}
-.testi-stars { color: #ffd700; font-size: 1rem; margin-bottom: 12px; }
-.testi-quote { font-size: 0.95rem; color: var(--dark); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
-.testi-author { font-size: 0.8rem; font-weight: 700; color: var(--blue); }
-
-/* ── FOOTER ── */
-footer {
-  background: var(--dark); color: rgba(255,255,255,0.7);
-  padding: 4rem 5vw 2rem;
-}
-.footer-grid {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3rem; margin-bottom: 3rem;
-}
-.footer-brand p { font-size: 0.85rem; line-height: 1.7; margin-top: 12px; max-width: 260px; }
-.footer-col h4 { color: white; font-weight: 700; margin-bottom: 1rem; font-size: 0.9rem; }
-.footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 8px; transition: color var(--transition); }
-.footer-col a:hover { color: white; }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;
-  display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
-  font-size: 0.8rem;
-}
-
-/* ── SCROLL ANIMATIONS ── */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; padding: 3rem 5vw; }
-  .hero-card-wrap { display: none; }
-  .hero-stats { gap: 1.5rem; }
-  .nav-links { display: none; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* ── FLOATING BACK TO TOP ── */
-.top-btn {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--blue); color: white;
-  border: none; cursor: pointer; font-size: 1.2rem;
-  box-shadow: var(--shadow-md);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition);
-}
-.top-btn.show { opacity: 1; pointer-events: all; }
-.top-btn:hover { transform: scale(1.1); }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo-wrap">
+  <a href="index.html" class="logo-wrap">
     <div class="logo-icon">♥</div>
     <div class="logo-text">
       <strong>CAN</strong>
@@ -480,27 +146,27 @@ footer {
     </div>
   </a>
   <div class="nav-links">
-    <a href="#" class="active" data-en="Home" data-es="Inicio">Home</a>
+    <a href="index.html">Home</a>
     <div class="nav-dropdown">
-      <span data-en="Programs & Services ▾" data-es="Programas y Servicios ▾">Programs & Services ▾</span>
+      <span>Programs & Services ▾</span>
       <div class="dropdown-menu">
-        <a href="food-pantry.html">🍽️ Community Choice Pantry</a>
-        <a href="food-pantry.html">📋 Pantry Resources</a>
+        <a href="food-pantry.html" style="color:var(--green);font-weight:600">🍽️ Community Choice Pantry</a>
+        <a href="https://www.canconnects.org/pantry-resources">📋 Pantry Resources</a>
         <a href="https://www.canconnects.org/homeless-shelters-housing-programs">🏠 Homeless & Housing</a>
         <a href="https://www.canconnects.org/outreach-programs">🤝 Outreach Programs</a>
       </div>
     </div>
     <div class="nav-dropdown">
-      <span data-en="Support Us ▾" data-es="Apóyanos ▾">Support Us ▾</span>
+      <span>Support Us ▾</span>
       <div class="dropdown-menu">
-        <a href="https://www.canconnects.org/donate" data-en="❤️ Donate" data-es="❤️ Donar">❤️ Donate</a>
-        <a href="https://www.canconnects.org/volunteer-1" data-en="🙋 Volunteer" data-es="🙋 Voluntariado">🙋 Volunteer</a>
-        <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits" data-en="💼 Tax Credits" data-es="💼 Créditos Fiscales">💼 Tax Credits</a>
+        <a href="https://www.canconnects.org/donate">❤️ Donate</a>
+        <a href="https://www.canconnects.org/volunteer-1">🙋 Volunteer</a>
+        <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits">💼 Tax Credits</a>
       </div>
     </div>
-    <a href="https://www.canconnects.org/events" data-en="Events" data-es="Eventos">Events</a>
+    <a href="https://www.canconnects.org/events">Events</a>
     <div class="nav-dropdown">
-      <span data-en="About Us ▾" data-es="Sobre Nosotros ▾">About Us ▾</span>
+      <span>About Us ▾</span>
       <div class="dropdown-menu">
         <a href="https://www.canconnects.org/about-us">Our Story</a>
         <a href="https://www.canconnects.org/board-of-directors">Leadership</a>
@@ -511,187 +177,214 @@ footer {
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
-    <select class="lang-select" id="langSel" onchange="setLang(this.value)">
-      <option value="en">🌐 English</option>
-      <option value="es">🌐 Español</option>
-    </select>
+    <select class="lang-select"><option>🌐 English</option><option>Español</option></select>
     <a href="https://www.canconnects.org/donate" class="btn-donate">Donate Now</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-dots"></div>
-
-  <div class="hero-top">
-    <div class="hero-content">
-      <div class="hero-badge" data-en="Celebrating 60 Years of Service & Impact" data-es="Celebrando 60 Años de Servicio e Impacto">Celebrating 60 Years of Service & Impact</div>
-      <h1 data-en="Helping People,<br><em>Changing Lives</em><br>Since 1964" data-es="Ayudando a Personas,<br><em>Cambiando Vidas</em><br>Desde 1964">Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
-      <p data-en="Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone." data-es="Community Assistance Network empodera a los residentes del Condado de Baltimore a través del acceso a alimentos, apoyo de vivienda, programas de alcance y más. Nadie enfrenta la adversidad solo.">Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
-      <div class="hero-actions">
-        <a href="https://www.canconnects.org/volunteer-1" class="btn-primary">
-          <span data-en="Volunteer" data-es="Voluntario">Volunteer</span>
-        </a>
-        <a href="https://www.canconnects.org/donate" class="btn-outline">
-          <span data-en="Donate" data-es="Donar">Donate</span>
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">60+</span><span class="stat-label" data-en="Years" data-es="Años">Years</span></div>
-        <div class="stat"><span class="stat-num">50K+</span><span class="stat-label" data-en="Families Served" data-es="Familias Atendidas">Families Served</span></div>
-        <div class="stat"><span class="stat-num">$2M+</span><span class="stat-label" data-en="Aid Given" data-es="Ayuda Brindada">Aid Given</span></div>
-      </div>
-    </div>
-
-    <div class="hero-card-wrap">
-      <div class="media-carousel" id="mediaCarousel">
-        <div class="mc-track" id="mcTrack">
-        <div class="mc-slide"><img src="media/img1.avif" alt="CAN community volunteers"></div>
-        <div class="mc-slide"><img src="media/img2.avif" alt="CAN community event"></div>
-        <div class="mc-slide"><img src="media/img3.avif" alt="CAN outreach program"></div>
-        <div class="mc-slide"><img src="media/img4.avif" alt="CAN families served"></div>
-        <div class="mc-slide"><img src="media/img5.avif" alt="CAN pantry volunteers"></div>
-        <div class="mc-slide"><img src="media/img6.avif" alt="CAN community impact"></div>
-        </div>
-        <button class="mc-btn mc-prev" onclick="mcMove(-1)">‹</button>
-        <button class="mc-btn mc-next" onclick="mcMove(1)">›</button>
-        <div class="mc-dots" id="mcDots"></div>
-      </div>
-    </div>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-text">
+    <h1>🍽️ Community Choice Pantry</h1>
+    <p>Shop with dignity in a grocery store–style setting. Income-eligible Baltimore County residents choose their own food, tailored to their family's needs.</p>
   </div>
-
-  <!-- PROGRAMS — fully visible before scroll -->
-  <div class="hero-programs-bar">
-
-    <a href="food-pantry.html" class="prog-card" style="--card-accent:#2d6a4f">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(45,106,79,0.9),rgba(82,183,136,0.9)); --banner-bg:rgba(45,106,79,0.1)">
-        <span class="prog-banner-icon">🍽️</span>
-      </div>
-      <div class="prog-title-row"><h3 data-en="Community Choice Pantry" data-es="Despensa Comunitaria">Community Choice Pantry</h3></div>
-      <p class="prog-desc" data-en="Dignified food access — shop like a grocery store." data-es="Acceso digno a alimentos — compre como en una tienda.">Dignified food access — shop like a grocery store.</p>
-      <div class="prog-links-stack">
-        <a href="food-pantry.html" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Pantry Hours" data-es="Horario de la Despensa">Pantry Hours</span><span>→</span></a>
-        <a href="food-pantry.html" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Income Guidelines" data-es="Guías de Ingresos">Income Guidelines</span><span>→</span></a>
-        <a href="food-pantry.html" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Sign Up" data-es="Registrarse">Sign Up</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
-    </a>
-
-    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" style="--card-accent:#1a6fa8">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(26,111,168,0.9),rgba(41,128,185,0.9)); --banner-bg:rgba(26,111,168,0.1)">
-        <span class="prog-banner-icon">🏠</span>
-      </div>
-      <div class="prog-title-row"><h3 data-en="Homeless & Housing Services" data-es="Servicios de Vivienda">Homeless & Housing Services</h3></div>
-      <p class="prog-desc" data-en="Emergency shelter, transitional housing & referrals." data-es="Refugio de emergencia, vivienda transitoria y derivaciones.">Emergency shelter, transitional housing & referrals.</p>
-      <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="CAN Shelter Referral" data-es="Derivación de Refugio">CAN Shelter Referral</span><span>→</span></a>
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Apply for Housing" data-es="Solicitar Vivienda">Apply for Housing</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
-    </a>
-
-    <a href="https://www.canconnects.org/outreach-programs" class="prog-card" style="--card-accent:#7b2d8b">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(123,45,139,0.9),rgba(168,85,247,0.9)); --banner-bg:rgba(123,45,139,0.1)">
-        <span class="prog-banner-icon">🤝</span>
-      </div>
-      <div class="prog-title-row"><h3 data-en="Outreach Programs" data-es="Programas de Alcance">Outreach Programs</h3></div>
-      <p class="prog-desc" data-en="SNAP enrollment, financial aid & street outreach." data-es="Inscripción en SNAP, ayuda financiera y alcance callejero.">SNAP enrollment, financial aid & street outreach.</p>
-      <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Financial Assistance" data-es="Asistencia Financiera">Financial Assistance</span><span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="SNAP Enrollment" data-es="Inscripción en SNAP">SNAP Enrollment</span><span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Street Outreach" data-es="Alcance Callejero">Street Outreach</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
-    </a>
-
+  <div class="page-hero-actions">
+    <a href="https://www.canconnects.org/pantry-resources" class="btn-white">📋 Sign Up & Resources →</a>
+    <a href="https://www.canconnects.org/pantry-resources" class="btn-outline-white">Income Guidelines</a>
   </div>
-</section>
-
-<!-- IMPACT -->
-<section class="impact reveal">
-  <div class="section-header">
-    <p class="section-label">Our Impact</p>
-    <h2 class="section-title">60 Years of<br>Changing Lives</h2>
-    <p>Every year, CAN makes a measurable difference across Baltimore County.</p>
-  </div>
-  <div class="impact-grid">
-    <div class="impact-card"><span class="impact-num">50K+</span><span class="impact-label">Individuals served annually</span></div>
-    <div class="impact-card"><span class="impact-num">1M+</span><span class="impact-label">Pounds of food distributed</span></div>
-    <div class="impact-card"><span class="impact-num">5,000+</span><span class="impact-label">Shelter nights provided</span></div>
-    <div class="impact-card"><span class="impact-num">$2M+</span><span class="impact-label">In financial assistance</span></div>
-    <div class="impact-card"><span class="impact-num">60</span><span class="impact-label">Years of service & impact</span></div>
-  </div>
-</section>
-
-<!-- EVENT BANNER -->
-<div class="event-banner reveal">
-  <div class="event-banner-text">
-    <h2>⛳ 6th Annual Golf Tournament</h2>
-    <p>June 8 · Woodlands Golf Course · $175/golfer · Foursomes & sponsorships available</p>
-  </div>
-  <a href="https://crm.bloomerang.co/HostedDonation?ApiKey=pub_98963a49-a831-11ef-904d-0acbdc7b47c3&WidgetId=107136000" class="btn-white">Register Now →</a>
 </div>
 
-<!-- SUPPORT -->
-<section class="reveal">
-  <div class="section-header">
-    <p class="section-label">Get Involved</p>
-    <h2 class="section-title">How You Can Help</h2>
-    <p>Every contribution — big or small — helps us serve more families.</p>
-  </div>
-  <div class="support-grid">
-    <a href="https://www.canconnects.org/donate" class="support-card">
-      <span class="support-icon">❤️</span>
-      <h3>Donate</h3>
-      <p>Your financial gift directly funds food, shelter, and outreach for families in need.</p>
-    </a>
-    <a href="https://www.canconnects.org/volunteer-1" class="support-card">
-      <span class="support-icon">🙋</span>
-      <h3>Volunteer</h3>
-      <p>Join hundreds of volunteers who give their time to power our pantry, shelters, and events.</p>
-    </a>
-    <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits" class="support-card">
-      <span class="support-icon">💼</span>
-      <h3>Community Tax Credits</h3>
-      <p>Maryland businesses can receive tax credits for donating to CAN. Learn how today.</p>
-    </a>
-    <a href="https://www.canconnects.org/partners-supporters" class="support-card">
-      <span class="support-icon">🤝</span>
-      <h3>Partner With Us</h3>
-      <p>Align your organization with CAN's mission through sponsorship and community partnership.</p>
-    </a>
-  </div>
-</section>
+<!-- MAIN GRID -->
+<div class="page-body">
 
-<!-- TESTIMONIALS -->
-<section class="testimonials reveal">
-  <div class="section-header">
-    <p class="section-label">Voices</p>
-    <h2 class="section-title">What People Say</h2>
+  <!-- HOURS -->
+  <div class="info-card reveal">
+    <div class="card-header">
+      <div class="card-icon" style="background:#e8f5e9">🕐</div>
+      <h2>Pantry Hours</h2>
+    </div>
+    <div class="card-body">
+      <div class="hours-grid">
+        <div class="hour-row"><span class="day">Monday</span><span class="time">11:00 AM – 3:00 PM</span></div>
+        <div class="hour-row"><span class="day">Tuesday</span><span class="time">11:00 AM – 7:00 PM</span></div>
+        <div class="hour-row"><span class="day">Wednesday</span><span class="time">11:00 AM – 3:00 PM</span></div>
+        <div class="hour-row"><span class="day">Thursday</span><span class="time">11:00 AM – 3:00 PM</span></div>
+        <div class="hour-row closed"><span class="day">Friday – Sunday</span><span class="time">Closed</span></div>
+      </div>
+      <div class="notice">⚠️ You must sign in by 10:45 AM or 2:45 PM to receive service. Please bring your own bags.</div>
+
+      <div class="expand-list" style="margin-top:14px">
+        <div class="expand-item">
+          <button class="expand-trigger" onclick="toggle(this)">
+            📅 Holiday Schedule <span class="chevron">▼</span>
+          </button>
+          <div class="expand-content">
+            <div class="expand-content-inner">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:4px">
+                <div class="hol-chip">🎊 Jan 1 — New Year's Day</div>
+                <div class="hol-chip">✊ Jan 20 — MLK Jr. Day</div>
+                <div class="hol-chip">🏛️ Feb 17 — Presidents' Day</div>
+                <div class="hol-chip">✝️ Apr 18 — Good Friday</div>
+                <div class="hol-chip">⚔️ May 26 — Memorial Day</div>
+                <div class="hol-chip">🗽 Jun 19 — Juneteenth</div>
+                <div class="hol-chip">🎆 Jul 4 — Independence Day</div>
+                <div class="hol-chip">👷 Sep 1 — Labor Day</div>
+                <div class="hol-chip">🦃 Nov 27 — Thanksgiving</div>
+                <div class="hol-chip">🦃 Nov 28 — Thanksgiving Friday</div>
+                <div class="hol-chip">🎄 Dec 24 — Christmas Eve</div>
+                <div class="hol-chip">🎄 Dec 25 — Christmas Day</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <button class="expand-trigger" onclick="toggle(this)">
+            🌧️ Weather Information <span class="chevron">▼</span>
+          </button>
+          <div class="expand-content">
+            <div class="expand-content-inner">When Baltimore County Public Schools are closed due to weather, the pantry is also closed. Follow our social media pages for real-time updates on weather closures.</div>
+          </div>
+        </div>
+
+        <div class="expand-item">
+          <button class="expand-trigger" onclick="toggle(this)">
+            📦 Pantry Resources <span class="chevron">▼</span>
+          </button>
+          <div class="expand-content">
+            <div class="expand-content-inner">Visit our <a href="https://www.canconnects.org/pantry-resources" style="color:var(--green)">Pantry Resources page</a> for income guidelines, required documentation, sign-up forms, and more.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="testimonials-scroll">
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"CAN's pantry saved my family during the hardest months of my life. The staff treated us with such dignity and kindness."</p>
-      <p class="testi-author">— Community Member, Baltimore Co.</p>
+
+  <!-- REQUIREMENTS + VIDEO stacked right -->
+  <div style="display:flex;flex-direction:column;gap:1.5rem">
+
+    <!-- REQUIREMENTS -->
+    <div class="info-card reveal">
+      <div class="card-header">
+        <div class="card-icon" style="background:#e3f2fd">📄</div>
+        <h2>What to Bring</h2>
+      </div>
+      <div class="card-body">
+        <div class="req-list">
+          <div class="req-item"><span class="req-icon">🪪</span>Photo ID for all adults in household</div>
+          <div class="req-item"><span class="req-icon">📍</span>Proof of Baltimore County residency (utility bill, lease, etc.)</div>
+          <div class="req-item"><span class="req-icon">👶</span>Proof of all household members (birth certificates, school records)</div>
+          <div class="req-item"><span class="req-icon">💰</span>Proof of income for all household members</div>
+          <div class="req-item"><span class="req-icon">🛍️</span>Your own reusable bags — CAN carts must stay on site</div>
+        </div>
+      </div>
     </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"The housing team helped me find shelter within days. I don't know where I'd be without them."</p>
-      <p class="testi-author">— Housing Services Recipient</p>
+
+    <!-- VIDEO -->
+    <div class="video-card reveal">
+      <div class="card-header" style="border-bottom:1px solid rgba(0,0,0,0.06)">
+        <div class="card-icon" style="background:#f3e8ff">🎬</div>
+        <h2>Watch Our Pantry Video</h2>
+      </div>
+      <div class="video-placeholder" onclick="this.innerHTML='<iframe width=\'100%\' height=\'220\' src=\'https://www.youtube.com/embed/dQw4w9WgXcQ\' frameborder=\'0\' allowfullscreen style=\'display:block\'></iframe>'">
+        <div class="play-btn">▶</div>
+        <p>See the pantry in action</p>
+      </div>
+      <div class="video-links">
+        <a href="https://www.canconnects.org/food-pantry" class="video-link">📥 Download Guide</a>
+        <a href="https://www.canconnects.org/pantry-resources" class="video-link">📋 Full Resources</a>
+      </div>
     </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"Volunteering here was one of the most meaningful experiences of my life. You can feel the impact immediately."</p>
-      <p class="testi-author">— CAN Volunteer</p>
+
+  </div>
+
+  <!-- RULES — full width -->
+  <div class="info-card full-width reveal">
+    <div class="card-header">
+      <div class="card-icon" style="background:#fce4ec">📜</div>
+      <h2>Rules & Notices</h2>
     </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"The budget counseling sessions helped me get out of debt and start saving for the first time. Life-changing."</p>
-      <p class="testi-author">— Outreach Programs Participant</p>
+    <div class="card-body">
+      <div class="rules-grid">
+        <div class="rule-chip">✅ One visit per household per week</div>
+        <div class="rule-chip">✅ Food distributed based on household size (1–6+)</div>
+        <div class="rule-chip">✅ Grocery carts must remain on CAN property</div>
+        <div class="rule-chip">✅ Sign in before cutoff time to receive service</div>
+        <div class="rule-chip">✅ Pet food & hygiene items available while supplies last</div>
+        <div class="rule-chip">✅ Item selection varies based on donations & inventory</div>
+        <div class="rule-chip">✅ Respectful behavior required at all times</div>
+        <div class="rule-chip">✅ Staff available to assist with additional needs</div>
+      </div>
     </div>
   </div>
-</section>
+
+  <!-- TEAM — full width -->
+  <div class="full-width reveal">
+    <div style="margin-bottom:1.5rem">
+      <p style="font-size:0.75rem;font-weight:700;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px">The People Behind the Pantry</p>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:2rem;color:var(--dark)">Our Awesome People</h2>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-photo">
+          <img src="https://static.wixstatic.com/media/bc52ba_63ff804588ef44c6840965dfa1d44464~mv2.jpg" alt="Carla Schroyer" onerror="this.parentElement.innerHTML='👩'">
+        </div>
+        <div class="team-info">
+          <h3>Carla Schroyer</h3>
+          <p>Director, Community Choice Pantry</p>
+          <blockquote>"Work has to be connected to a greater purpose. I truly believe the work I do makes a difference in others' lives."</blockquote>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd);align-items:center;justify-content:center;display:flex">👤</div>
+        <div class="team-info">
+          <h3>Team Member</h3>
+          <p>Pantry Staff</p>
+          <blockquote>Add name, title & quote here.</blockquote>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);align-items:center;justify-content:center;display:flex">👤</div>
+        <div class="team-info">
+          <h3>Team Member</h3>
+          <p>Pantry Staff</p>
+          <blockquote>Add name, title & quote here.</blockquote>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);align-items:center;justify-content:center;display:flex">👤</div>
+        <div class="team-info">
+          <h3>Team Member</h3>
+          <p>Pantry Staff</p>
+          <blockquote>Add name, title & quote here.</blockquote>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:linear-gradient(135deg,#fef9c3,#fde68a);align-items:center;justify-content:center;display:flex">👤</div>
+        <div class="team-info">
+          <h3>Team Member</h3>
+          <p>Pantry Staff</p>
+          <blockquote>Add name, title & quote here.</blockquote>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-photo" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);align-items:center;justify-content:center;display:flex">👤</div>
+        <div class="team-info">
+          <h3>Team Member</h3>
+          <p>Pantry Staff</p>
+          <blockquote>Add name, title & quote here.</blockquote>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -708,125 +401,39 @@ footer {
       <a href="food-pantry.html">Community Choice Pantry</a>
       <a href="https://www.canconnects.org/homeless-shelters-housing-programs">Homeless & Housing</a>
       <a href="https://www.canconnects.org/outreach-programs">Outreach Programs</a>
-      <a href="https://www.canconnects.org/careers">Careers</a>
     </div>
     <div class="footer-col">
       <h4>Support Us</h4>
       <a href="https://www.canconnects.org/donate">Donate</a>
       <a href="https://www.canconnects.org/volunteer-1">Volunteer</a>
       <a href="https://www.canconnects.org/cancommunityinvestmenttaxcredits">Tax Credits</a>
-      <a href="https://www.canconnects.org/events">Events</a>
     </div>
     <div class="footer-col">
       <h4>About</h4>
       <a href="https://www.canconnects.org/about-us">Our Story</a>
       <a href="https://www.canconnects.org/board-of-directors">Leadership</a>
-      <a href="https://www.canconnects.org/office-locations">Locations</a>
       <a href="https://www.canconnects.org/contact-us">Contact Us</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Community Assistance Network, Inc. All rights reserved.</span>
-    <span><a href="https://www.canconnects.org/documentation" style="color:rgba(255,255,255,0.5);text-decoration:none">Civil Rights Statement</a></span>
+    <span>© 2025 Community Assistance Network, Inc.</span>
+    <div class="social-links">
+      <a href="https://www.facebook.com/CANConnects" title="Facebook">f</a>
+      <a href="https://www.instagram.com/canconnects" title="Instagram">ig</a>
+      <a href="https://twitter.com/CANConnects" title="Twitter">𝕏</a>
+    </div>
   </div>
 </footer>
 
-<button class="top-btn" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
 <script>
-// Language switching
-function setLang(lang) {
-  document.querySelectorAll('[data-en]').forEach(el => {
-    const txt = el.getAttribute('data-' + lang);
-    if (!txt) return;
-    if (el.tagName === 'H1' || el.classList.contains('prog-cta')) {
-      el.innerHTML = txt;
-    } else {
-      el.textContent = txt;
-    }
-  });
-  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+function toggle(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
 }
 
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-reveals.forEach(r => obs.observe(r));
-
-// Back to top
-const topBtn = document.getElementById('topBtn');
-window.addEventListener('scroll', () => topBtn.classList.toggle('show', window.scrollY > 400));
-
-// ── MEDIA CAROUSEL ──
-let mcIdx = 0;
-const track = document.getElementById('mcTrack');
-const dotsWrap = document.getElementById('mcDots');
-
-function mcRender() {
-  const slides = track.querySelectorAll('.mc-slide');
-  track.style.transform = `translateX(-${mcIdx * 100}%)`;
-  dotsWrap.querySelectorAll('.mc-dot').forEach((d,i) => d.classList.toggle('active', i === mcIdx));
-  // pause/play videos
-  slides.forEach((s,i) => { const v = s.querySelector('video'); if(v) i===mcIdx ? v.play() : v.pause(); });
-}
-
-function mcBuildDots() {
-  const n = track.querySelectorAll('.mc-slide').length;
-  dotsWrap.innerHTML = '';
-  for(let i=0;i<n;i++) {
-    const d = document.createElement('button');
-    d.className = 'mc-dot' + (i===mcIdx?' active':'');
-    d.onclick = () => { mcIdx=i; mcRender(); };
-    dotsWrap.appendChild(d);
-  }
-}
-
-function mcMove(dir) {
-  const n = track.querySelectorAll('.mc-slide').length;
-  mcIdx = (mcIdx + dir + n) % n;
-  mcRender();
-}
-
-function mcAddFiles(files) {
-  Array.from(files).forEach(file => {
-    const slide = document.createElement('div');
-    slide.className = 'mc-slide';
-    const url = URL.createObjectURL(file);
-    if (file.type.startsWith('video/')) {
-      const v = document.createElement('video');
-      v.src = url; v.loop = true; v.muted = true; v.playsInline = true;
-      slide.appendChild(v);
-    } else {
-      const img = document.createElement('img');
-      img.src = url; img.alt = file.name;
-      slide.appendChild(img);
-    }
-    track.appendChild(slide);
-  });
-  mcBuildDots(); mcRender();
-}
-
-mcBuildDots();
-// Auto-advance every 4s
-setInterval(() => mcMove(1), 4000);
-
-// 3D tilt on program cards
-document.querySelectorAll('.prog-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(1000px) rotateY(${x*14}deg) rotateX(${-y*10}deg) translateZ(8px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-    card.style.transition = 'transform 0.5s ease, box-shadow 0.35s ease';
-    setTimeout(() => card.style.transition = 'box-shadow 0.35s ease, transform 0.1s ease', 500);
-  });
-  card.addEventListener('mouseenter', () => { card.style.transition = 'box-shadow 0.35s ease'; });
-});
+const obs = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting) el.target.classList.add('visible'); }), {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
 </script>
 </body>
 </html>

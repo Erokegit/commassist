@@ -112,12 +112,19 @@ nav {
 
 /* ── HERO ── */
 .hero {
-  min-height: 78vh;
-  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, #1a8fcb 100%);
+  min-height: calc(100vh - 72px);
+  background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 60%, #1a8fcb 100%);
   position: relative; overflow: hidden;
-  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
-  padding: 2.5rem 5vw;
-  gap: 3rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 2rem 5vw 2.5rem;
+}
+.hero-top {
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: 3rem; position: relative; z-index: 2;
+}
+.hero-programs-bar {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
 }
 
 .hero::before {
@@ -173,12 +180,14 @@ nav {
 }
 .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; }
 
-.hero-stats {
-  display: flex; gap: 2rem; margin-top: 3rem;
-}
+.hero-stats { display: flex; gap: 2rem; margin-top: 1.5rem; }
 .stat { text-align: center; }
-.stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #ffd700; display: block; }
-.stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #ffd700; display: block; }
+.stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; }
+.hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,4vw,3.2rem); color:white; line-height:1.1; margin-bottom:1rem; }
+.hero h1 em { font-style:italic; color:#ffd700; }
+.hero p { font-size:0.95rem; color:rgba(255,255,255,0.85); line-height:1.7; margin-bottom:1.25rem; max-width:480px; }
+.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
 
 /* ── MEDIA CAROUSEL ── */
 .media-carousel {
@@ -251,83 +260,74 @@ section { padding: 5rem 5vw; }
 .section-header { margin-bottom: 3rem; }
 .section-header p { margin-top: 12px; color: var(--mid); font-size: 1.05rem; max-width: 560px; }
 
-/* ── PROGRAMS ── */
-.programs { background: var(--light); }
-.programs-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem; perspective: 1200px;
-}
-
+/* ── PROGRAMS BAR (inside hero) ── */
 .prog-card {
-  background: white; border-radius: 22px;
-  text-decoration: none; color: inherit; overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 18px;
+  text-decoration: none; color: white; overflow: hidden;
   display: flex; flex-direction: column;
-  border: 1px solid rgba(0,0,0,0.06);
   transform: perspective(1000px) rotateX(0) rotateY(0) translateZ(0);
-  transition: box-shadow 0.35s ease, transform 0.1s ease;
+  transition: box-shadow 0.3s ease, transform 0.1s ease, background 0.3s ease;
   will-change: transform;
 }
-.prog-card:hover { box-shadow: 0 24px 60px rgba(0,0,0,0.15), 0 6px 20px rgba(0,0,0,0.08); }
+.prog-card:hover {
+  background: rgba(255,255,255,0.18);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
 
-/* Coloured banner with icon */
 .prog-banner {
-  height: 110px; display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
+  height: 80px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; border-radius: 14px 14px 0 0;
 }
 .prog-banner::after {
-  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 28px;
-  background: white;
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 22px;
+  background: var(--banner-bg, rgba(255,255,255,0.1));
   clip-path: ellipse(55% 100% at 50% 100%);
 }
 .prog-banner-icon {
-  font-size: 2.6rem; z-index: 1;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+  font-size: 3rem; z-index: 1;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
 }
-
-/* Title block */
 .prog-title-row {
-  padding: 0 1.4rem 0.6rem;
-  display: flex; align-items: center; gap: 10px;
+  padding: 0.5rem 1.1rem 0.3rem;
 }
-.prog-title-row h3 { font-size: 1rem; font-weight: 700; color: var(--dark); }
-
+.prog-title-row h3 { font-size: 0.9rem; font-weight: 700; color: white; }
 .prog-desc {
-  padding: 0 1.4rem 1rem;
-  font-size: 0.8rem; color: var(--mid); line-height: 1.6;
+  padding: 0 1.1rem 0.75rem;
+  font-size: 0.75rem; color: rgba(255,255,255,0.72); line-height: 1.5;
 }
-
-/* Stacked link buttons */
 .prog-links-stack {
-  margin: 0 1.4rem; display: flex; flex-direction: column; gap: 6px;
+  margin: 0 1.1rem; display: flex; flex-direction: column; gap: 5px;
 }
 .prog-link-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 13px; border-radius: 10px; text-decoration: none;
-  font-size: 0.8rem; font-weight: 600;
-  background: rgba(0,0,0,0.03); color: var(--dark);
-  border: 1px solid rgba(0,0,0,0.07);
-  transition: background 0.18s, transform 0.18s, border-color 0.18s;
+  padding: 7px 11px; border-radius: 9px; text-decoration: none;
+  font-size: 0.75rem; font-weight: 600; color: white;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: background 0.18s, transform 0.18s;
 }
 .prog-link-row:hover {
-  background: color-mix(in srgb, var(--card-accent,#1a6fa8) 10%, white);
-  border-color: color-mix(in srgb, var(--card-accent,#1a6fa8) 30%, transparent);
+  background: rgba(255,255,255,0.22);
   transform: translateX(3px);
 }
-.prog-link-row span { font-size: 0.75rem; opacity: 0.45; }
-
-/* Primary CTA */
+.prog-link-row span { opacity: 0.6; font-size: 0.75rem; }
 .prog-cta {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin: 1rem 1.4rem 1.4rem; padding: 12px;
-  border-radius: 12px; font-size: 0.85rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin: 0.75rem 1.1rem 1.1rem; padding: 10px;
+  border-radius: 11px; font-size: 0.82rem; font-weight: 700;
   color: white; text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.2);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  transition: background 0.2s, transform 0.2s;
 }
-.prog-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.22); }
+.prog-cta:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
 .arr { transition: transform 0.2s; }
 .prog-cta:hover .arr { transform: translateX(4px); }
+
+/* Hide old standalone programs section */
+.programs { display: none; }
 
 /* ── IMPACT ── */
 .impact {
@@ -480,7 +480,7 @@ footer {
     <div class="nav-dropdown">
       <span data-en="Programs & Services ▾" data-es="Programas y Servicios ▾">Programs & Services ▾</span>
       <div class="dropdown-menu">
-        <a href="https://www.canconnects.org/food-pantry">🍽️ Community Choice Pantry</a>
+        <a href="https://www.canconnects.org/food-pantry">🥫 Community Choice Pantry</a>
         <a href="https://www.canconnects.org/pantry-resources">📋 Pantry Resources</a>
         <a href="https://www.canconnects.org/homeless-shelters-housing-programs">🏠 Homeless & Housing</a>
         <a href="https://www.canconnects.org/outreach-programs">🤝 Outreach Programs</a>
@@ -518,110 +518,93 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-dots"></div>
-  <div class="hero-content">
-    <div class="hero-badge" data-en="Celebrating 60 Years of Service & Impact" data-es="Celebrando 60 Años de Servicio e Impacto">Celebrating 60 Years of Service & Impact</div>
-    <h1 data-en="Helping People,<br><em>Changing Lives</em><br>Since 1964" data-es="Ayudando a Personas,<br><em>Cambiando Vidas</em><br>Desde 1964">Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
-    <p data-en="Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone." data-es="Community Assistance Network empodera a los residentes del Condado de Baltimore a través del acceso a alimentos, apoyo de vivienda, programas de alcance y más. Nadie enfrenta la adversidad solo.">Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
-    <div class="hero-actions">
-      <a href="https://www.canconnects.org/programs-services" class="btn-primary">
-        <span data-en="Our Programs" data-es="Nuestros Programas">Our Programs</span> <span>→</span>
-      </a>
-      <a href="https://www.canconnects.org/volunteer-1" class="btn-outline">
-        <span data-en="Volunteer" data-es="Voluntario">Volunteer</span>
-      </a>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num">60+</span><span class="stat-label" data-en="Years" data-es="Años">Years</span></div>
-      <div class="stat"><span class="stat-num">50K+</span><span class="stat-label" data-en="Families Served" data-es="Familias Atendidas">Families Served</span></div>
-      <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-en="Core Programs" data-es="Programas Principales">Core Programs</span></div>
-    </div>
-  </div>
 
-  <div class="hero-card-wrap">
-    <!-- MEDIA CAROUSEL -->
-    <div class="media-carousel" id="mediaCarousel">
-      <div class="mc-track" id="mcTrack">
-        <!-- Placeholder slides — replace src with your own images/videos -->
-        <div class="mc-slide mc-placeholder" data-label="Upload your photos & videos below">
-          <div class="mc-placeholder-inner">
-            <span class="mc-upload-icon">🖼️</span>
-            <p>Your community photos<br>& videos appear here</p>
-          </div>
-        </div>
-        <div class="mc-slide mc-placeholder">
-          <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">
-            <span class="mc-upload-icon">📸</span>
-            <p>Pantry volunteers<br>in action</p>
-          </div>
-        </div>
-        <div class="mc-slide mc-placeholder">
-          <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">
-            <span class="mc-upload-icon">🎥</span>
-            <p>Community outreach<br>highlights</p>
-          </div>
-        </div>
+  <div class="hero-top">
+    <div class="hero-content">
+      <div class="hero-badge" data-en="Celebrating 60 Years of Service & Impact" data-es="Celebrando 60 Años de Servicio e Impacto">Celebrating 60 Years of Service & Impact</div>
+      <h1 data-en="Helping People,<br><em>Changing Lives</em><br>Since 1964" data-es="Ayudando a Personas,<br><em>Cambiando Vidas</em><br>Desde 1964">Helping People,<br><em>Changing Lives</em><br>Since 1964</h1>
+      <p data-en="Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone." data-es="Community Assistance Network empodera a los residentes del Condado de Baltimore a través del acceso a alimentos, apoyo de vivienda, programas de alcance y más. Nadie enfrenta la adversidad solo.">Community Assistance Network empowers Baltimore County residents through food access, housing support, outreach programs, and more. No one faces hardship alone.</p>
+      <div class="hero-actions">
+        <a href="https://www.canconnects.org/volunteer-1" class="btn-primary">
+          <span data-en="Volunteer" data-es="Voluntario">Volunteer</span>
+        </a>
+        <a href="https://www.canconnects.org/donate" class="btn-outline">
+          <span data-en="Donate" data-es="Donar">Donate</span>
+        </a>
       </div>
-      <button class="mc-btn mc-prev" onclick="mcMove(-1)">‹</button>
-      <button class="mc-btn mc-next" onclick="mcMove(1)">›</button>
-      <div class="mc-dots" id="mcDots"></div>
-      <!-- Upload area -->
-      <label class="mc-upload-label" title="Add image or video">
-        <input type="file" accept="image/*,video/*" multiple onchange="mcAddFiles(this.files)" style="display:none">
-        + Add Media
-      </label>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">60+</span><span class="stat-label" data-en="Years" data-es="Años">Years</span></div>
+        <div class="stat"><span class="stat-num">50K+</span><span class="stat-label" data-en="Families Served" data-es="Familias Atendidas">Families Served</span></div>
+        <div class="stat"><span class="stat-num">$2M+</span><span class="stat-label" data-en="Aid Given" data-es="Ayuda Brindada">Aid Given</span></div>
+      </div>
+    </div>
+
+    <div class="hero-card-wrap">
+      <div class="media-carousel" id="mediaCarousel">
+        <div class="mc-track" id="mcTrack">
+          <div class="mc-slide mc-placeholder">
+            <div class="mc-placeholder-inner"><span class="mc-upload-icon">🖼️</span><p>Your community photos<br>& videos appear here</p></div>
+          </div>
+          <div class="mc-slide mc-placeholder">
+            <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)"><span class="mc-upload-icon">📸</span><p>Pantry volunteers<br>in action</p></div>
+          </div>
+          <div class="mc-slide mc-placeholder">
+            <div class="mc-placeholder-inner" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)"><span class="mc-upload-icon">🎥</span><p>Community outreach<br>highlights</p></div>
+          </div>
+        </div>
+        <button class="mc-btn mc-prev" onclick="mcMove(-1)">‹</button>
+        <button class="mc-btn mc-next" onclick="mcMove(1)">›</button>
+        <div class="mc-dots" id="mcDots"></div>
+        <label class="mc-upload-label" title="Add image or video">
+          <input type="file" accept="image/*,video/*" multiple onchange="mcAddFiles(this.files)" style="display:none">
+          + Add Media
+        </label>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- PROGRAMS -->
-<section class="programs reveal" id="programs" style="padding:3rem 5vw 4rem">
-  <div class="section-header" style="margin-bottom:2rem">
-    <p class="section-label" data-en="What We Do" data-es="Lo Que Hacemos">What We Do</p>
-    <h2 class="section-title" data-en="Programs & Services" data-es="Programas y Servicios">Programs & Services</h2>
-    <p data-en="Click any program to learn more and access resources." data-es="Haga clic en cualquier programa para obtener más información y acceder a recursos.">Click any program to learn more and access resources.</p>
-  </div>
-
-  <div class="programs-grid" id="progGrid" style="grid-template-columns:repeat(3,1fr)">
+  <!-- PROGRAMS — fully visible before scroll -->
+  <div class="hero-programs-bar">
 
     <a href="https://www.canconnects.org/food-pantry" class="prog-card" style="--card-accent:#2d6a4f">
-      <div class="prog-banner" style="background:linear-gradient(135deg,#2d6a4f,#52b788)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(45,106,79,0.9),rgba(82,183,136,0.9)); --banner-bg:rgba(45,106,79,0.1)">
         <span class="prog-banner-icon">🍽️</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Community Choice Pantry" data-es="Despensa Comunitaria">Community Choice Pantry</h3></div>
-      <p class="prog-desc" data-en="Dignified food access — shop our pantry like a grocery store and choose what works for your family." data-es="Acceso digno a alimentos — compre en nuestra despensa como en una tienda y elija lo que funciona para su familia.">Dignified food access — shop our pantry like a grocery store and choose what works for your family.</p>
+      <p class="prog-desc" data-en="Dignified food access — shop like a grocery store." data-es="Acceso digno a alimentos — compre como en una tienda.">Dignified food access — shop like a grocery store.</p>
       <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/food-pantry" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Pantry Hours" data-es="Horario de la Despensa">Pantry Hours</span> <span>→</span></a>
-        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Income Guidelines" data-es="Guías de Ingresos">Income Guidelines</span> <span>→</span></a>
-        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Sign Up" data-es="Registrarse">Sign Up</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/food-pantry" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Pantry Hours" data-es="Horario de la Despensa">Pantry Hours</span><span>→</span></a>
+        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Income Guidelines" data-es="Guías de Ingresos">Income Guidelines</span><span>→</span></a>
+        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Sign Up" data-es="Registrarse">Sign Up</span><span>→</span></a>
       </div>
-      <span class="prog-cta" style="background:linear-gradient(135deg,#2d6a4f,#52b788)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
+      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
     <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" style="--card-accent:#1a6fa8">
-      <div class="prog-banner" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(26,111,168,0.9),rgba(41,128,185,0.9)); --banner-bg:rgba(26,111,168,0.1)">
         <span class="prog-banner-icon">🏠</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Homeless & Housing Services" data-es="Servicios de Vivienda">Homeless & Housing Services</h3></div>
-      <p class="prog-desc" data-en="Emergency shelter, transitional housing, and CAN Shelter Referral for individuals and families." data-es="Refugio de emergencia, vivienda transitoria y derivación de refugio CAN para personas y familias.">Emergency shelter, transitional housing, and CAN Shelter Referral for individuals and families.</p>
+      <p class="prog-desc" data-en="Emergency shelter, transitional housing & referrals." data-es="Refugio de emergencia, vivienda transitoria y derivaciones.">Emergency shelter, transitional housing & referrals.</p>
       <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="CAN Shelter Referral" data-es="Derivación de Refugio CAN">CAN Shelter Referral</span> <span>→</span></a>
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Apply for Housing" data-es="Solicitar Vivienda">Apply for Housing</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="CAN Shelter Referral" data-es="Derivación de Refugio">CAN Shelter Referral</span><span>→</span></a>
+        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Apply for Housing" data-es="Solicitar Vivienda">Apply for Housing</span><span>→</span></a>
       </div>
-      <span class="prog-cta" style="background:linear-gradient(135deg,#1a6fa8,#2980b9)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
+      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
     <a href="https://www.canconnects.org/outreach-programs" class="prog-card" style="--card-accent:#7b2d8b">
-      <div class="prog-banner" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(123,45,139,0.9),rgba(168,85,247,0.9)); --banner-bg:rgba(123,45,139,0.1)">
         <span class="prog-banner-icon">🤝</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Outreach Programs" data-es="Programas de Alcance">Outreach Programs</h3></div>
-      <p class="prog-desc" data-en="Financial assistance eligibility, SNAP enrollment, and street outreach for vulnerable residents." data-es="Elegibilidad para asistencia financiera, inscripción en SNAP y alcance callejero para residentes vulnerables.">Financial assistance eligibility, SNAP enrollment, and street outreach for vulnerable residents.</p>
+      <p class="prog-desc" data-en="SNAP enrollment, financial aid & street outreach." data-es="Inscripción en SNAP, ayuda financiera y alcance callejero.">SNAP enrollment, financial aid & street outreach.</p>
       <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Financial Assistance" data-es="Asistencia Financiera">Financial Assistance</span> <span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="SNAP Enrollment" data-es="Inscripción en SNAP">SNAP Enrollment</span> <span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Street Outreach" data-es="Alcance Callejero">Street Outreach</span> <span>→</span></a>
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Financial Assistance" data-es="Asistencia Financiera">Financial Assistance</span><span>→</span></a>
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="SNAP Enrollment" data-es="Inscripción en SNAP">SNAP Enrollment</span><span>→</span></a>
+        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Street Outreach" data-es="Alcance Callejero">Street Outreach</span><span>→</span></a>
       </div>
-      <span class="prog-cta" style="background:linear-gradient(135deg,#7b2d8b,#a855f7)" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
+      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
   </div>

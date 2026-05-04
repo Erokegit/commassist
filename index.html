@@ -124,7 +124,16 @@ nav {
 }
 .hero-programs-bar {
   position: relative; z-index: 2;
-  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 1rem;
+}
+.hero-programs-bar .prog-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .hero::before {
@@ -303,7 +312,7 @@ section { padding: 5rem 5vw; }
   font-size: 0.75rem; color: rgba(255,255,255,0.72); line-height: 1.5;
 }
 .prog-links-stack {
-  margin: 0 1.1rem; display: flex; flex-direction: column; gap: 5px;
+  margin: 0 1.1rem; display: flex; flex-direction: column; gap: 5px; flex: 1;
 }
 .prog-link-row {
   display: flex; align-items: center; justify-content: space-between;
@@ -520,7 +529,7 @@ footer {
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero">
   <div class="hero-dots"></div>
 
   <div class="hero-top">
@@ -560,52 +569,61 @@ footer {
     </div>
   </div>
 
-  <!-- PROGRAMS — fully visible before scroll -->
-  <div class="hero-programs-bar">
+  <!-- PROGRAMS — 3 cards in one row -->
+  <div style="position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
 
     <a href="food-pantry.html" class="prog-card" style="--card-accent:#2d6a4f">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(45,106,79,0.9),rgba(82,183,136,0.9)); --banner-bg:rgba(45,106,79,0.1)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(45,106,79,0.9),rgba(82,183,136,0.9))">
         <span class="prog-banner-icon">🍽️</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Community Choice Pantry" data-es="Despensa Comunitaria">Community Choice Pantry</h3></div>
       <p class="prog-desc" data-en="Dignified food access — shop like a grocery store." data-es="Acceso digno a alimentos — compre como en una tienda.">Dignified food access — shop like a grocery store.</p>
-      <div class="prog-links-stack">
-        <a href="food-pantry.html" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Pantry Hours" data-es="Horario de la Despensa">Pantry Hours</span><span>→</span></a>
-        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Income Guidelines" data-es="Guías de Ingresos">Income Guidelines</span><span>→</span></a>
-        <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Sign Up" data-es="Registrarse">Sign Up</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
     <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-card" style="--card-accent:#1a6fa8">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(26,111,168,0.9),rgba(41,128,185,0.9)); --banner-bg:rgba(26,111,168,0.1)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(26,111,168,0.9),rgba(41,128,185,0.9))">
         <span class="prog-banner-icon">🏠</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Homeless & Housing Services" data-es="Servicios de Vivienda">Homeless & Housing Services</h3></div>
       <p class="prog-desc" data-en="Emergency shelter, transitional housing & referrals." data-es="Refugio de emergencia, vivienda transitoria y derivaciones.">Emergency shelter, transitional housing & referrals.</p>
-      <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="CAN Shelter Referral" data-es="Derivación de Refugio">CAN Shelter Referral</span><span>→</span></a>
-        <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Apply for Housing" data-es="Solicitar Vivienda">Apply for Housing</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
     <a href="https://www.canconnects.org/outreach-programs" class="prog-card" style="--card-accent:#7b2d8b">
-      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(123,45,139,0.9),rgba(168,85,247,0.9)); --banner-bg:rgba(123,45,139,0.1)">
+      <div class="prog-banner" style="background:linear-gradient(135deg,rgba(123,45,139,0.9),rgba(168,85,247,0.9))">
         <span class="prog-banner-icon">🤝</span>
       </div>
       <div class="prog-title-row"><h3 data-en="Outreach Programs" data-es="Programas de Alcance">Outreach Programs</h3></div>
       <p class="prog-desc" data-en="SNAP enrollment, financial aid & street outreach." data-es="Inscripción en SNAP, ayuda financiera y alcance callejero.">SNAP enrollment, financial aid & street outreach.</p>
-      <div class="prog-links-stack">
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Financial Assistance" data-es="Asistencia Financiera">Financial Assistance</span><span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="SNAP Enrollment" data-es="Inscripción en SNAP">SNAP Enrollment</span><span>→</span></a>
-        <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" onclick="event.stopPropagation()"><span data-en="Street Outreach" data-es="Alcance Callejero">Street Outreach</span><span>→</span></a>
-      </div>
-      <span class="prog-cta" data-en="Learn more →" data-es="Más información →">Learn more <span class="arr">→</span></span>
     </a>
 
   </div>
-</section>
+
+</div>
+
+<!-- PROGRAM LINKS ROW — visible on scroll -->
+<div style="background:var(--blue-dark);padding:1.5rem 5vw;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;border-top:1px solid rgba(255,255,255,0.1)">
+
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <a href="food-pantry.html" class="prog-link-row" style="background:rgba(45,106,79,0.2);border-color:rgba(82,183,136,0.3)"><span>Pantry Hours</span><span>→</span></a>
+    <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" style="background:rgba(45,106,79,0.2);border-color:rgba(82,183,136,0.3)"><span>Income Guidelines</span><span>→</span></a>
+    <a href="https://www.canconnects.org/pantry-resources" class="prog-link-row" style="background:rgba(45,106,79,0.2);border-color:rgba(82,183,136,0.3)"><span>Sign Up</span><span>→</span></a>
+    <a href="food-pantry.html" class="prog-cta" style="background:linear-gradient(135deg,#2d6a4f,#52b788);border:none;margin-top:4px">Learn more <span class="arr">→</span></a>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" style="background:rgba(26,111,168,0.2);border-color:rgba(41,128,185,0.3)"><span>CAN Shelter Referral</span><span>→</span></a>
+    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-link-row" style="background:rgba(26,111,168,0.2);border-color:rgba(41,128,185,0.3)"><span>Apply for Housing</span><span>→</span></a>
+    <a href="https://www.canconnects.org/homeless-shelters-housing-programs" class="prog-cta" style="background:linear-gradient(135deg,#1a6fa8,#2980b9);border:none;margin-top:4px">Learn more <span class="arr">→</span></a>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" style="background:rgba(123,45,139,0.2);border-color:rgba(168,85,247,0.3)"><span>Financial Assistance</span><span>→</span></a>
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" style="background:rgba(123,45,139,0.2);border-color:rgba(168,85,247,0.3)"><span>SNAP Enrollment</span><span>→</span></a>
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-link-row" style="background:rgba(123,45,139,0.2);border-color:rgba(168,85,247,0.3)"><span>Street Outreach</span><span>→</span></a>
+    <a href="https://www.canconnects.org/outreach-programs" class="prog-cta" style="background:linear-gradient(135deg,#7b2d8b,#a855f7);border:none;margin-top:4px">Learn more <span class="arr">→</span></a>
+  </div>
+
+</div>
 
 <!-- IMPACT -->
 <section class="impact reveal">
